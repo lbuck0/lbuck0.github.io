@@ -11,17 +11,6 @@
     "link": "Articles/contact.html"
   },
   {
-    "title": "Test 2",
-    "summary": "One-sentence summary...",
-    "image": "thumbnail.jpg",
-    "date": "2025-07-15",
-    "tags": [
-      "Coding",
-      "Projects"
-    ],
-    "link": "Articles/experience.html"
-  },
-  {
     "title": "Test 3",
     "summary": "One-sentence summary...",
     "image": "thumbnail.jpg",
