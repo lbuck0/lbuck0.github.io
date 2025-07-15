@@ -30,7 +30,7 @@ fs.readdirSync(articlesDir).forEach(file => {
       image,
       date,
       tags,
-      link: `articles/${file}`
+      link: `Articles/${file}`
     });
   }
 });
