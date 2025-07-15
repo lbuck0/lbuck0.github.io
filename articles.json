@@ -8,7 +8,7 @@
       "Coding",
       "Projects"
     ],
-    "link": "articles/contact.html"
+    "link": "Articles/contact.html"
   },
   {
     "title": "Test 2",
@@ -19,7 +19,7 @@
       "Coding",
       "Projects"
     ],
-    "link": "articles/experience.html"
+    "link": "Articles/experience.html"
   },
   {
     "title": "Test 3",
@@ -30,7 +30,7 @@
       "Coding",
       "Projects"
     ],
-    "link": "articles/projects.html"
+    "link": "Articles/projects.html"
   },
   {
     "title": "Old",
@@ -41,6 +41,6 @@
       "Coding",
       "Projects"
     ],
-    "link": "articles/test1.html"
+    "link": "Articles/test1.html"
   }
 ]
