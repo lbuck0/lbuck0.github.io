@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta name="date" content="2025-07-15" />
+<meta name="tags" content="Coding, Projects" />
+<h1>Test 2</h1>
+<p>One-sentence summary...</p>
+<img src="thumbnail.jpg" alt="..." />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luke Buck | Experience</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <header>
+    <div class="header-container">
+      <h1 class="site-name">Luke Buck</h1>
+      <nav class="desktop-nav">
+        <a href="index.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="experience.html" class="active">Experience</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <button id="menu-toggle">☰</button>
+    </div>
+    <nav id="mobile-menu">
+      <a href="index.html">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="experience.html">Experience</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+  <main>
+    <h2>Work History</h2>
+    <ul>
+      <li>
+        <strong>Job Title at Company A</strong><br />
+        <em>Jan 2022 – Present</em><br />
+        • Brief description of responsibilities and achievements.
+      </li>
+      <li>
+        <strong>Job Title at Company B</strong><br />
+        <em>Aug 2020 – Dec 2021</em><br />
+        • Key accomplishments, skills used, and impact.
+      </li>
+      <li>
+        <strong>Internship at Company C</strong><br />
+        <em>Jun 2019 – Aug 2020</em><br />
+        • What you learned, what you built, and who you helped.
+      </li>
+    </ul>
+  </main>
+  <footer>
+    <p>© 2025 Luke</p>
+  </footer>
+  <script>
+    document.getElementById('menu-toggle').addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.toggle('show');
+    });
+  </script>
+
+</body>
+</html>

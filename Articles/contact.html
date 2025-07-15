@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta name="date" content="2025-07-15" />
+<meta name="tags" content="Coding, Projects" />
+<h1>Test1</h1>
+<p>One-sentence summary...</p>
+<img src="thumbnail.jpg" alt="..." />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luke Buck | Contact</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <h1 class="site-name">Luke Buck</h1>
+      <nav class="desktop-nav">
+        <a href="index.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="experience.html">Experience</a>
+        <a href="contact.html" class="active">Contact</a>
+      </nav>
+      <button id="menu-toggle">☰</button>
+    </div>
+    <nav id="mobile-menu">
+      <a href="index.html">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="experience.html">Experience</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+  <main>
+    <p>Want to work together or just say hi? Fill out the form below:</p>
+
+    <form action="https://formspree.io/f/yourformid" method="POST">
+      <label for="name">Name:</label><br />
+      <input type="text" id="name" name="name" required /><br /><br />
+
+      <label for="email">Email:</label><br />
+      <input type="email" id="email" name="email" required /><br /><br />
+
+      <label for="message">Message:</label><br />
+      <textarea id="message" name="message" rows="5" required></textarea><br /><br />
+
+      <button type="submit">Send</button>
+    </form>
+  </main>
+  <footer>
+    <p>© 2025 Luke</p>
+  </footer>
+  <script>
+    document.getElementById('menu-toggle').addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.toggle('show');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta name="date" content="2025-07-15" />
+<meta name="tags" content="Coding, Projects" />
+<h1>Test 3</h1>
+<p>One-sentence summary...</p>
+<img src="thumbnail.jpg" alt="..." />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luke Buck | Projects</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <h1 class="site-name">Luke Buck</h1>
+      <nav class="desktop-nav">
+        <a href="index.html">About</a>
+        <a href="projects.html" class="active">Projects</a>
+        <a href="experience.html">Experience</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <button id="menu-toggle">☰</button>
+    </div>
+    <nav id="mobile-menu">
+      <a href="index.html">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="experience.html">Experience</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+  <main>
+    <h2>Project List</h2>
+    <table id="projectTable" border="1">
+      <thead></thead>
+      <tbody></tbody>
+    </table>
+    <br />
+    <a href="testdata.csv" download><button>Download CSV</button></a>
+  </main>
+  <footer>
+    <p>© 2025 Luke</p>
+  </footer>
+
+  <script>
+    fetch('testdata.csv')
+      .then(response => response.text())
+      .then(data => {
+        const rows = data.trim().split('\n').map(r => r.split(','));
+        const thead = document.querySelector('#projectTable thead');
+        const tbody = document.querySelector('#projectTable tbody');
+
+        thead.innerHTML = '<tr>' + rows[0].map(cell => `<th>${cell}</th>`).join('') + '</tr>';
+
+        rows.slice(1).forEach(row => {
+          const tr = document.createElement('tr');
+          row.forEach(cell => {
+            const td = document.createElement('td');
+            td.textContent = cell;
+            tr.appendChild(td);
+          });
+          tbody.appendChild(tr);
+        });
+      });
+  </script>
+  <script>
+    document.getElementById('menu-toggle').addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.toggle('show');
+    });
+  </script>
+
+</body>
+</html>
