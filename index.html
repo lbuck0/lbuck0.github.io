@@ -278,7 +278,7 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("scroll", () => {
     let current = "";
     sections.forEach((section) => {
-      if (window.scrollY >= section.offsetTop) {
+      if (window.scrollY+80>= section.offsetTop) {
         current = section.id;
       }
     });

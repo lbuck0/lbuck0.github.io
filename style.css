@@ -12,6 +12,10 @@ section[id]::before {
   margin-top: -60px;
 }
 
+section {
+  scroll-margin-top: 60px; /* adjust to your header height */
+}
+
 body {
   font-family: 'Segoe UI', sans-serif;
   margin: 0;
