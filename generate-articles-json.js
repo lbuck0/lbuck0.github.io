@@ -16,9 +16,9 @@ fs.readdirSync(articlesDir).forEach(file => {
     const $ = cheerio.load(html);
 
     // 🎯 Extract metadata (customize selectors if needed)
-    const title = $('h1').first().text().trim() || path.basename(file, '.html');
-    const summary = $('p').first().text().trim() || '';
-    const image = $('img').first().attr('src') || 'default-thumb.jpg';
+    const title = $('meta[name="title"]').attr('content') || path.basename(file, '.html');
+    const summary = $('meta[name="summary"]').attr('content') || '';
+    const image = $('meta[name="thumbnail"]').attr('content') || 'default-thumb.jpg';
     const date = $('meta[name="date"]').attr('content') || 'Unknown';
     const tagsRaw = $('meta[name="tags"]').attr('content') || '';
     const tags = tagsRaw.split(',').map(tag => tag.trim()).filter(Boolean);

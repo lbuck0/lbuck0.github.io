@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Luke Buck | Projects</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- HEADER -->
+  <!-- 🧭 HEADER -->
   <header>
     <div class="header-container">
       <h2 class="site-name">
@@ -21,6 +21,7 @@
         <a href="index.html#experience">Experience</a>
         <a href="index.html#music">Music</a>
         <a href="index.html#certs">Certifications</a>
+        <a href="index.html#contact">Contact</a>
       </nav>
       <button id="menu-toggle">☰</button>
     </div>
@@ -31,30 +32,37 @@
       <a href="index.html#experience">Experience</a>
       <a href="index.html#music">Music</a>
       <a href="index.html#certs">Certifications</a>
+      <a href="index.html#contact">Contact</a>
     </nav>
   </header>
-  
-  <!-- 🔙 BACK TO HOME BUTTON tucked right below header -->
-  <a href="index.html" class="back-button">← Back to Home</a>
+
 
   <main>
-    <section id="projects" class="articles-section">
+    <div class="back-wrapper">
+      <a href="../index.html" class="back-link">← Home</a>
+    </div>
 
+    <section id="projects" class="articles-section">
       <h2 class="blue-heading">Projects & Research</h2>
 
-      <!-- 🎛️ FILTER OPTIONS -->
-      <div class="filter-container">
-        <label for="filter-type">Filter:</label>
-        <select id="filter-type" class="filter-select">
-          <option value="newest">Newest to Oldest</option>
-          <option value="oldest">Oldest to Newest</option>
-          <option value="favorites">Luke’s Favorites</option>
-          <option value="tag">Sort by Tag</option>
-        </select>
+      <div class="filter-toolbar">
+        <div class="search-box">
+          <input type="text" id="project-search" autocomplete="new-password" placeholder="Search projects..." class="filter-select search-input" />
+          <button id="clear-search" aria-label="Clear search">×</button>
+          <ul id="search-suggestions" class="suggestions-list"></ul>
+        </div>
 
-        <select id="tag-select" class="filter-select" style="display: none;">
-          <!-- Populated dynamically -->
-        </select>
+        <div class="filter-options">
+          <label for="filter-type"><strong>Filter:</strong></label>
+          <select id="filter-type" class="filter-select">
+            <option value="newest">Newest to Oldest</option>
+            <option value="oldest">Oldest to Newest</option>
+            <option value="favorites">Luke’s Favorites</option>
+            <option value="tag">Sort by Tag</option>
+          </select>
+
+          <select id="tag-select" class="filter-select" style="display: none;"></select>
+        </div>
       </div>
 
       <!-- 🧱 PROJECT PREVIEW GRID -->
@@ -62,125 +70,204 @@
     </section>
   </main>
 
-<footer>
-  <p id="updated-footer">Last updated: <span id="updated-date"></span></p>
+  <footer>
+    <p id="updated-footer">Last updated: <span id="updated-date"></span></p>
+    <p class="signature">Tell your dog I say hi!</p>
+    <p class="social-links">
+      <a href="https://linkedin.com/in/luke-a-buck" target="_blank">
+        <img src="images/linkedin.png" alt="LinkedIn" class="social-icon" />
+      </a>
+    </p>
+  </footer>
 
-  <p class="signature">Built with finesse & flexbox by Luke Buck</p>
-
-  <p class="social-links">
-    <a href="www.linkedin.com/in/luke-a-buck" target="_blank" rel="noopener noreferrer">
-      <img src="images/linkedin-logo.webp" alt="LinkedIn" class="social-icon">
-    </a>
-  </p>
-</footer>
-
-
-<script>
-  // Last updated script
-  document.getElementById("updated-date").textContent =
-    new Date(document.lastModified).toLocaleDateString();
-</script>
-
+  <!-- 🕒 Last Updated Script -->
   <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const menuToggle = document.getElementById("menu-toggle");
-    const mobileMenu = document.getElementById("mobile-menu");
-    menuToggle.addEventListener("click", () => mobileMenu.classList.toggle("show"));
-    document.querySelectorAll("#mobile-menu a").forEach(link =>
-      link.addEventListener("click", () => mobileMenu.classList.remove("show"))
-    );
-    window.addEventListener("resize", () => {
-      if (window.innerWidth > 750 && mobileMenu.classList.contains("show")) {
-        mobileMenu.classList.remove("show");
-      }
-    });
+    document.getElementById("updated-date").textContent =
+      new Date(document.lastModified).toLocaleDateString();
+  </script>
 
-    const sections = document.querySelectorAll("section[id]");
-    const navLinks = document.querySelectorAll(".desktop-nav a");
-    window.addEventListener("scroll", () => {
-      let current = "";
-      sections.forEach(sec => {
-        if (window.scrollY >= sec.offsetTop - 100) {
-          current = sec.id;
+  <!-- ⚙️ Functionality Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const menuToggle = document.getElementById("menu-toggle");
+      const mobileMenu = document.getElementById("mobile-menu");
+      menuToggle.addEventListener("click", () => mobileMenu.classList.toggle("show"));
+      document.querySelectorAll("#mobile-menu a").forEach(link =>
+        link.addEventListener("click", () => mobileMenu.classList.remove("show"))
+      );
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 750 && mobileMenu.classList.contains("show")) {
+          mobileMenu.classList.remove("show");
         }
       });
-      navLinks.forEach(link =>
-        link.classList.toggle("active", link.getAttribute("href").includes(current))
-      );
-    });
 
-    window.addEventListener("scroll", () => {
-      const header = document.querySelector("header");
-      const maxScroll = document.body.scrollHeight - window.innerHeight;
-      const pct = Math.floor(Math.min(1, window.scrollY / maxScroll) * 100);
-      header.style.borderImage = 
-        `linear-gradient(to right, #3a6ea5 ${pct}%, transparent ${pct}%) 1`;
-    });
-
-    const container   = document.getElementById("projects-container");
-    const typeSelect  = document.getElementById("filter-type");
-    const tagSelect   = document.getElementById("tag-select");
-    let articles = [];
-
-    function populateTags() {
-      const tagSet = new Set();
-      articles.forEach(a => {
-        if (Array.isArray(a.tags)) a.tags.forEach(t => tagSet.add(t));
+      window.addEventListener("scroll", () => {
+        const header = document.querySelector("header");
+        const maxScroll = document.body.scrollHeight - window.innerHeight;
+        const pct = Math.floor(Math.min(1, window.scrollY / maxScroll) * 100);
+        header.style.borderImage =
+          `linear-gradient(to right, #3a6ea5 ${pct}%, transparent ${pct}%) 1`;
       });
-      const opts = Array.from(tagSet).sort().map(t =>
-        `<option value="${t}">${t}</option>`
-      ).join("");
-      tagSelect.innerHTML = `<option value="all">All Tags</option>${opts}`;
-    }
 
-    function renderProjects() {
-      container.innerHTML = "";
-      let list = [...articles];
-      const mode = typeSelect.value;
+      const container = document.getElementById("projects-container");
+      const typeSelect = document.getElementById("filter-type");
+      const tagSelect = document.getElementById("tag-select");
+      const searchInput = document.getElementById("project-search");
+      const suggestionsList = document.getElementById("search-suggestions");
 
-      if (mode === "favorites") {
-        list = list.filter(a => a.favorite);
-      }
-      if (mode === "tag" && tagSelect.value !== "all") {
-        list = list.filter(a => Array.isArray(a.tags) && a.tags.includes(tagSelect.value));
-      }
+      let articles = [];
 
-      if (mode === "oldest") {
-        list.sort((a, b) => new Date(a.date) - new Date(b.date));
-      } else {
-        list.sort((a, b) => new Date(b.date) - new Date(a.date));
+      function populateTags() {
+        const tagSet = new Set();
+        articles.forEach(a => {
+          if (Array.isArray(a.tags)) a.tags.forEach(t => tagSet.add(t));
+        });
+        const opts = Array.from(tagSet).sort().map(t =>
+          `<option value="${t}">${t}</option>`
+        ).join("");
+        tagSelect.innerHTML = `<option value="all">All Tags</option>${opts}`;
       }
 
-      list.forEach(a => {
-        const card = document.createElement("a");
-        card.className = "article-card";
-        card.href      = a.link;
-        card.innerHTML = `
-          <img src="${a.image}" alt="${a.title} thumbnail">
-          <div class="article-content">
-            <h3>${a.title}</h3>
-            <p>${a.summary}</p>
-            <span class="meta">📅 ${a.date}</span>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    }
+      function renderProjects() {
+        container.innerHTML = "";
+        let list = [...articles];
 
-    typeSelect.addEventListener("change", () => {
-      tagSelect.style.display = typeSelect.value === "tag" ? "inline-block" : "none";
-      renderProjects();
-    });
-    tagSelect.addEventListener("change", renderProjects);
+        const query = searchInput.value.toLowerCase().trim();
+        if (query) {
+          list = list.filter(a =>
+            a.title.toLowerCase().includes(query) ||
+            a.summary.toLowerCase().includes(query) ||
+            (Array.isArray(a.tags) && a.tags.some(tag => tag.toLowerCase().includes(query)))
+          );
+        }
 
-    fetch("articles.json")
-      .then(res => res.json())
-      .then(data => {
-        articles = data;
-        populateTags();
+        const mode = typeSelect.value;
+
+        if (mode === "favorites") {
+          list = list.filter(a => a.favorite);
+        }
+        if (mode === "tag" && tagSelect.value !== "all") {
+          list = list.filter(a =>
+            Array.isArray(a.tags) && a.tags.includes(tagSelect.value)
+          );
+        }
+
+        if (mode === "oldest") {
+          list.sort((a, b) => new Date(a.date) - new Date(b.date));
+        } else {
+          list.sort((a, b) => new Date(b.date) - new Date(a.date));
+        }
+
+        list.forEach(a => {
+          const card = document.createElement("a");
+          card.className = "article-card";
+          card.href = a.link;
+          card.innerHTML = `
+            <img src="${a.image}" alt="${a.title} thumbnail" />
+            <div class="article-content">
+              <h3>${a.title}</h3>
+              <p>${a.summary}</p>
+              <span class="meta">📅 ${a.date}</span>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      }
+
+      function updateSuggestions() {
+        const query = searchInput.value.toLowerCase().trim();
+        suggestionsList.innerHTML = "";
+
+        if (!query) return;
+
+        const matches = articles.filter(a =>
+          a.title.toLowerCase().includes(query) ||
+          a.summary.toLowerCase().includes(query) ||
+          (Array.isArray(a.tags) && a.tags.some(tag => tag.toLowerCase().includes(query)))
+        ).slice(0, 5);
+
+        matches.forEach(a => {
+          const li = document.createElement("li");
+          li.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 0.5em;">
+              <img src="${a.image}" alt="${a.title}" style="width: 30px; height: auto; border-radius: 4px;" />
+              <span>${a.title}</span>
+            </div>
+          `;
+          li.onclick = () => {
+            searchInput.value = a.title;
+            suggestionsList.innerHTML = "";
+            renderProjects();
+          };
+          suggestionsList.appendChild(li);
+        });
+      }
+
+      typeSelect.addEventListener("change", () => {
+        tagSelect.style.display = typeSelect.value === "tag" ? "inline-block" : "none";
         renderProjects();
       });
-  });
+
+      tagSelect.addEventListener("change", renderProjects);
+      searchInput.addEventListener("input", () => {
+        updateSuggestions();
+        renderProjects();
+      });
+
+      document.addEventListener("click", e => {
+        if (!e.target.closest(".search-box")) {
+          suggestionsList.innerHTML = "";
+        }
+      });
+
+      fetch("articles.json")
+        .then(res => res.json())
+        .then(data => {
+                    articles = data;
+          populateTags();
+          renderProjects();
+        })
+        .catch(err => {
+          console.error("Failed to load articles.json:", err);
+        });
+
+        let highlightedIndex = -1;
+
+        searchInput.addEventListener("keydown", e => {
+          const items = Array.from(suggestionsList.querySelectorAll("li"));
+
+          if (e.key === "ArrowDown") {
+            e.preventDefault();
+            highlightedIndex = (highlightedIndex + 1) % items.length;
+          } else if (e.key === "ArrowUp") {
+            e.preventDefault();
+            highlightedIndex = (highlightedIndex - 1 + items.length) % items.length;
+          } else if (e.key === "Enter") {
+            if (highlightedIndex >= 0 && items[highlightedIndex]) {
+              items[highlightedIndex].click();
+            }
+            return;
+          }
+
+          items.forEach((item, index) => {
+            item.classList.toggle("highlighted", index === highlightedIndex);
+          });
+        });
+
+        const clearBtn = document.getElementById("clear-search");
+
+        searchInput.addEventListener("input", () => {
+          clearBtn.style.display = searchInput.value ? "block" : "none";
+          updateSuggestions();
+          renderProjects();
+        });
+
+        clearBtn.addEventListener("click", () => {
+          searchInput.value = "";
+          clearBtn.style.display = "none";
+          suggestionsList.innerHTML = "";
+          renderProjects();
+        });
+
+    });
   </script>
-</body>
-</html>

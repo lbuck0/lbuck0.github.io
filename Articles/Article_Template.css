@@ -1,0 +1,495 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  line-height: 1.6;
+  color: #222;
+  background-color: #f9f9f9;
+}
+
+footer {
+  background: #eee;
+  text-align: center;
+  padding: 1em;
+  font-size: 0.9em;
+  color: #777;
+}
+
+footer p {
+  margin: 0.2em 0;
+  flex: 1 1 100%;
+  text-align: center;
+}
+
+/* 📝 TITLE & META */
+.article-main {
+  max-width: 1000px;
+  margin: 2em auto;
+  text-align: left;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.article-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.7rem;
+  margin-bottom: 0.4em;
+}
+
+.article-summary {
+  font-size: 1.2rem;
+  font-style: italic;
+  color: #555;
+  margin-bottom: 0.2em;
+}
+
+.article-author {
+  font-size: 0.95rem;
+  color: #777;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+}
+
+/* 🧾 ARTICLE TEXT */
+.article-body {
+  text-align: left;
+}
+
+.article-body p {
+  margin-bottom: 1.2em;
+}
+
+.lead {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.section-heading {
+  font-size: 1.4rem;
+  margin-top: 2em;
+  margin-bottom: 0.8em;
+  border-left: 4px solid #3a6ea5;
+  padding-left: 0.5em;
+}
+
+.subheading {
+  font-size: 1.2rem;
+  margin-top: 1.5em;
+  color: #3a6ea5;
+}
+
+.quote {
+  margin: 1.5em 0;
+  padding: 1em;
+  background-color: #eef2f6;
+  border-left: 4px solid #3a6ea5;
+  font-style: italic;
+}
+
+.note {
+  background: #fff9e6;
+  padding: 0.75em 1em;
+  border-left: 4px solid #e6a500;
+  color: #444;
+  font-size: 0.95rem;
+  margin-top: 1em;
+}
+
+/* ==========================================================================
+   HEADER & NAVIGATION
+   ========================================================================== */
+header {
+  /* translucent dark background with blur */
+  background: rgba(22, 22, 22, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
+  color: white;
+  padding: 0em 1em;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  /* border-bottom: 3pt solid #555; */
+  border-bottom: 5px solid transparent;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-right: 0;
+  padding: 0.75em 0;
+  border-image: linear-gradient(to right, #3a6ea5 0%, transparent 0%) 1;
+  transition: border-image 0.2s ease-out;
+  height:40px;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 0.6em; /* spacing between logo and text */
+}
+
+.header-logo {
+  height: 70px; /* adjust to fit your design */
+  width: auto;
+}
+
+.site-name {
+  font-size: 1.5em;
+  margin: 0;
+}
+
+.site-name a {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+/* Desktop navigation */
+.desktop-nav {
+  display: flex;
+}
+
+.desktop-nav a {
+  margin-left: 1em;
+  color: white;
+  text-decoration: none;
+  padding: 0.3em 0;
+}
+
+.desktop-nav a:hover {
+  text-decoration: underline;
+}
+
+.desktop-nav a.active {
+  font-weight: bold;
+}
+
+/* Mobile hamburger & menu */
+#menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.8em;
+  color: white;
+  cursor: pointer;
+  margin: 0;
+}
+
+#mobile-menu {
+  display: none;
+  flex-direction: column;
+  background: rgba(22, 22, 22, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
+  padding: 1em;
+  position: absolute;
+  top: 100%;
+  right: 0; /* 🔹 align to right */
+  width: fit-content; /* or a fixed width like 200px */
+  text-align: right;  /* aligns text to the right */
+}
+
+#mobile-menu.show {
+  display: flex;
+}
+
+#mobile-menu a {
+  text-align: right;
+  padding: 0.5em 0;
+  color: white;
+  text-decoration: none;
+}
+
+#mobile-menu a.active {
+  font-weight: bold;
+}
+
+/* Social icon container */
+.social-links {
+  display: flex;
+  justify-content: center;
+}
+
+.social-icon {
+  height: 24px;
+  width: auto;
+  object-fit: contain;
+  filter: grayscale(100%);
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.social-icon:hover {
+  filter: grayscale(0%) brightness(1.2);
+  transform: scale(1.1);
+}
+
+.main-article-image {
+  display: block;
+  width: 100%;
+  height: 40vh; /* fixed visible height across all articles */
+  object-fit: cover;       /* crop larger images */
+  object-position:bottom; /* focus point: center by default */
+  border-radius: 6px;
+  margin: 1.5em 0;
+}
+
+.captioned-image {
+  text-align: center;
+  margin: 2em 0;
+}
+
+.captioned-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+.captioned-image figcaption {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 0.5em;
+  font-style: italic;
+}
+
+.references {
+  margin-top: 3em;
+  padding-top: 1em;
+  border-top: 1px solid #ccc;
+}
+
+.references h3 {
+  font-size: 1.2rem;
+  color: #3a6ea5;
+  margin-bottom: 0.5em;
+}
+
+.references ol {
+  list-style: none; 
+  padding-left: 0;
+}
+
+.references li {
+  margin-bottom: 0.8em;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.article-body sup {
+  font-size: 0.75em;
+  vertical-align: super;
+}
+
+.article-body a[href^="#ref-"] {
+  color: #3a6ea5;          /* consistent accent color */
+  text-decoration: none;   /* no underline */
+  font-weight: 500;
+}
+
+.article-body a[href^="#ref-"]:hover,
+.article-body a[href^="#ref-"]:focus,
+.article-body a[href^="#ref-"]:visited {
+  color: #3a6ea5;          /* keeps same color after click */
+  text-decoration: none;   /* still no underline */
+}
+
+.references a {
+  color: #4d4d4d;            /* your accent color */
+  text-decoration: none;     /* no underline by default */
+}
+
+.references a:hover,
+.references a:focus {
+  text-decoration: underline; /* underline ONLY on hover/focus */
+}
+
+.references a:visited {
+  color: #4d4d4d;             /* same color even after click */
+  text-decoration: none;      /* no underline after click */
+}
+
+.back-wrapper {
+  width: 100%;
+  text-align: left;
+  padding: 0;
+  margin-top: -0.5em; /* Optional tweak for spacing consistency */
+}
+
+.back-link {
+  display: inline-block;
+  padding: 0.4em 0.8em;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  color: #444;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.back-link:hover,
+.back-link:focus {
+  border-color: #888;
+  color: #222;
+}
+
+.back-link:visited {
+  color: #444;
+  text-decoration: none;
+}
+
+.article-date {
+  color: #777;
+  margin: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #121212;
+    color: #e0e0e0;
+  }
+
+  header {
+    background-color: rgba(20, 20, 20, 0.85);
+    color: #f0f0f0;
+  }
+
+  .site-name a,
+  .desktop-nav a,
+  #mobile-menu a {
+    color: #f0f0f0;
+  }
+
+  .desktop-nav a:hover,
+  #mobile-menu a:hover {
+    color: #3a6ea5;
+  }
+
+  .article-title {
+    color: #f9f9f9;
+  }
+
+  .article-summary,
+  .article-author {
+    color: #aaa;
+  }
+
+  .main-article-image {
+    border: 2px solid #333;
+  }
+
+  .article-body p,
+  .lead {
+    color: #ddd;
+  }
+
+  .section-heading {
+    border-left-color: #3a6ea5;
+    color: #f9f9f9;
+  }
+
+  .subheading {
+    color: #3a6ea5;
+  }
+
+  .quote {
+    background-color: #1a1a1a;
+    border-left-color: #3a6ea5;
+    color: #ccc;
+  }
+
+  .note {
+    background-color: #2a2a2a;
+    border-left-color: #e6a500;
+    color: #ddd;
+  }
+
+  footer {
+    background-color: #1c1c1c;
+    color: #aaa;
+  }
+
+  .signature {
+    color: #aaa;
+  }
+
+  .social-icon {
+    filter: brightness(0.8);
+  }
+
+  .social-icon:hover {
+    filter: brightness(1.2);
+  }
+
+  .captioned-image figcaption {
+  color: #aaa;
+  }
+
+  references {
+    border-top-color: #555;
+  }
+
+  .references h3 {
+    color: #4a8bdf;
+  }
+
+  .references li {
+    color: #ffffff;
+  }
+
+  .references a:visited {
+    color: #ffffff;             /* same color even after click */
+    text-decoration: none;      /* no underline after click */
+  }
+
+    .references a {
+    color: #ffffff;             /* same color even after click */
+    text-decoration: none;      /* no underline after click */
+  }
+
+  .back-link {
+    border-color: #939393;
+    color: #d7d7d7;
+  }
+
+  .back-link:hover,
+  .back-link:focus {
+    border-color: #dfdfdf;
+    color: #fffefe;
+  }
+
+  .back-link:visited {
+    color: #d7d7d7;
+    text-decoration: none;
+  } 
+  .article-date {
+    color: #aaa;
+  }
+
+}
+
+
+@media (max-width: 750px) {
+  .desktop-nav {
+    display: none;
+  }
+
+  nav a {
+    margin: 0;
+  }
+
+  .article-main {
+    justify-content: left;
+    text-align: left;
+  }
+
+    #menu-toggle {
+    display: block;
+  }
+
+}

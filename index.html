@@ -9,7 +9,7 @@
 <body>
   <!-- HEADER -->
   <header>
-    <div class="header-container">
+  <div class="header-container">
       <h2 class="site-name">
         <a href="index.html">Luke Buck</a>
       </h2>
@@ -20,6 +20,7 @@
         <a href="#experience">Experience</a>
         <a href="#music">Music</a>
         <a href="#certs">Certifications</a>
+        <a href="#contact">Contact</a>
       </nav>
       <button id="menu-toggle">☰</button>
     </div>
@@ -30,12 +31,13 @@
       <a href="#experience">Experience</a>
       <a href="#music">Music</a>
       <a href="#certs">Certifications</a>
+      <a href="#contact">Contact</a>
     </nav>
   </header>
 
   <main>
     <!-- ABOUT -->
-    <section id="about" class="about-intro">
+    <section id="about">
       <div class="about-container">
         <img src="Images/KSB_2025_Luke_Buck.jpg"
              alt="Luke’s profile photo"
@@ -99,7 +101,7 @@
     </section>
 
     <!-- Experience -->
-    <section id="experience" class="certifications">
+    <section id="experience" class="education">
       <h2 class="blue-heading">Experience</h2>
       <ul class="info-list">
         <li class="info-card">
@@ -171,7 +173,7 @@
     </section>
 
     <!-- CERTIFICATIONS -->
-    <section id="certs" class="certifications">
+    <section id="certs" class="education">
       <h2 class="blue-heading">Certifications</h2>
       <ul class="info-list">
         <li class="info-card">
@@ -196,7 +198,7 @@
                  class="info-logo"/>
           </div>
           <div>
-            <strong>Dassault Systèmes Solidworks Professional (CSWP)</strong><br/>
+            <strong>Dassault Systèmes Certified Solidworks Professional (CSWP)</strong><br/>
             <a href="https://cv.virtualtester.com/qr/?b=SLDWRKS&i=C-9SC6YUJ3NL"
                class="cert-link"
                target="_blank">
@@ -221,19 +223,34 @@
         </li>
       </ul>
     </section>
+
+  <!-- Contact -->
+  <section id="contact" class="contact-section">
+    <h2 class="blue-heading-line">Contact</h2>
+
+    <div class="contact-flex">
+      <a href="https://linkedin.com/in/luke-a-buck" target="_blank" rel="noopener noreferrer">
+        <img src="images/linkedin.png" alt="LinkedIn" class="linkedin" />
+      </a>
+      <p class="contact-text">
+        If you'd like to contact me, send me a message on LinkedIn.
+      </p>
+    </div>
+  </section>
   </main>
 
 
 <footer>
   <p id="updated-footer">Last updated: <span id="updated-date"></span></p>
 
-  <p class="signature">Built with finesse & flexbox by Luke Buck1</p>
+  <p class="signature">Tell your dog I say hi!</p>
 
   <p class="social-links">
     <a href="https://linkedin.com/in/luke-a-buck" target="_blank">
-      <img src="Images/linkedin-logo.webp" alt="LinkedIn" class="social-icon">
+      <img src="Images/linkedin.png" alt="LinkedIn" class="social-icon">
     </a>
   </p>
+
 </footer>
 
 
@@ -261,7 +278,7 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("scroll", () => {
     let current = "";
     sections.forEach((section) => {
-      if (window.scrollY >= section.offsetTop - 100) {
+      if (window.scrollY >= section.offsetTop) {
         current = section.id;
       }
     });
@@ -319,6 +336,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const albums = [
     {
+      title: "Lonely Avenue",
+      artist: "Ray Charles",
+      image: "Images/RayCharles.webp",
+      link: "https://open.spotify.com/track/6tEJxuPnNDv6XL49nZEW7f?si=4453d4d8ee3d48f7"
+    },
+    {
       title: "How Good The Lord Is",
       artist: "Kingdom Culture",
       image: "Images/KingdomCulture.webp",
@@ -373,6 +396,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const pages    = Math.ceil(cards.length / perPage);
     const current  = Math.round(gallery.scrollLeft / (cardW * perPage));
     const maxScroll= gallery.scrollWidth - gallery.offsetWidth;
+
+    if (pages <= 1) {
+      dotsContainer.innerHTML = "";
+      dotsContainer.style.display = "none";
+      return;
+    } else {
+      dotsContainer.style.display = "flex";
+    }
 
     // Clear and rebuild dots
     dotsContainer.innerHTML = "";

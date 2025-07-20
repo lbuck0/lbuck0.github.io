@@ -1,7 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
-<meta name="date" content="2023-07-15" />
-<meta name="tags" content="Coding, Projects" />
-<h1>Old</h1>
-<p>One-sentence summary...</p>
-<img src="thumbnail.jpg" alt="..." />
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="title" content="Building a website with Microsoft Copilot"/>
+    <meta name="date" content="2025-07-19" />
+    <meta name="tags" content="Coding, Projects" />
+    <meta name="thumbnail" content="Articles/Images/WebsiteHeader.png"/>
+    <meta name="summary" content="Summary of article"/>
+    <title>Luke Buck | Article</title>
+    <link rel="stylesheet" href="Article_Template.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+  <div class="header-container">
+      <h2 class="site-name">
+        <a href="../index.html">Luke Buck</a>
+      </h2>
+      <nav class="desktop-nav">
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#education">Education</a>
+        <a href="../index.html#articles">Projects</a>
+        <a href="../index.html#experience">Experience</a>
+        <a href="../index.html#music">Music</a>
+        <a href="../index.html#certs">Certifications</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+      <button id="menu-toggle">☰</button>
+    </div>
+    <nav id="mobile-menu">
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#education">Education</a>
+      <a href="../index.html#articles">Projects</a>
+      <a href="../index.html#experience">Experience</a>
+      <a href="../index.html#music">Music</a>
+      <a href="../index.html#certs">Certifications</a>
+      <a href="../index.html#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- 📝 TITLE + SUMMARY -->
+  <main class="article-main">
+    <div class="back-wrapper">
+      <a href="../projects.html" class="back-link">← Projects & Research</a>
+    </div>
+    <h1 class="article-title">Building a personal website with Microsoft Copilot</h1>
+    <img src="Images/WebsiteHeader.png" alt="Main visual" class="main-article-image" />
+    <p class="article-summary">Thoughtful UX patterns that elevate user experiences and build trust.</p>
+      <p class="article-date">Published: July 19, 2025</p>
+    <p class="article-date">Tags: Coding, Projects</p>
+    <p class="article-author">By Luke Buck</p>
+
+    <!-- 🧾 ARTICLE CONTENT -->
+    <article class="article-body">
+      <p class="lead">When design meets intention, the result is more than just aesthetics—it’s clarity in motion.</p>
+
+      <p>Effective user interfaces strike a balance between beauty and behavior. It’s not enough to design with style; it must communicate.</p>
+
+      <figure class="captioned-image">
+        <img src="Images/Copilot.webp" alt="Sample visualization" />
+        <figcaption>Figure 1: This visualization illustrates hover interaction timing.</figcaption>
+      </figure>
+
+      <p>These techniques follow foundational UI principles outlined in <a href="#ref-1"><sup>[1]</sup></a>.</p>
+
+      <h2 class="section-heading">Micro-interactions matter</h2>
+      <p>Every hover effect, every transition tells a story. These subtleties can build confidence in a system or reveal inconsistency when neglected.</p>
+
+      <blockquote class="quote">
+        “Details aren’t just details—they make the design.” – Charles Eames
+      </blockquote>
+
+      <p>Animation should guide—not distract. Typography should speak—not shout. Color should comfort—not confuse.</p>
+
+      <h3 class="subheading">Responsive decisions</h3>
+      <p class="note">Designing for different screens isn't just technical—it's personal. Consider the context, the behavior, and the emotional rhythm of your interface.</p>
+
+      <section class="references">
+        <h3>References</h3>
+        <ol>
+          <li id="ref-1">
+            <a href="https://example.com/design-book" target="_blank">[1] D. Norman, <em>The Design of Everyday Things</em>, Basic Books, 2013.</a>
+          </li>
+        </ol>
+      </section>
+    </article>
+  </main>
+
+  <footer>
+  <p id="updated-footer">Last updated: <span id="updated-date"></span></p>
+  <p class="signature">Tell your dog I say hi!</p>
+  <p class="social-links">
+    <a href="https://linkedin.com/in/luke-a-buck" target="_blank">
+      <img src="../Images/linkedin.png" alt="LinkedIn" class="social-icon">
+    </a>
+  </p>
+</footer>
+
+</body>
+
+<script>
+  // Last updated script
+  document.getElementById("updated-date").textContent =
+    new Date(document.lastModified).toLocaleDateString();
+</script>
+
+<script>
+    // ========== MOBILE MENU ==========
+    const menuToggle = document.getElementById("menu-toggle");
+    const mobileMenu = document.getElementById("mobile-menu");
+    menuToggle.addEventListener("click", () => {
+        mobileMenu.classList.toggle("show");
+    });
+
+</script>
+
+<script>
+  window.addEventListener("scroll", () => {
+    const header = document.querySelector("header");
+    const maxScroll = document.body.scrollHeight - window.innerHeight;
+    const scrollRatio = Math.min(1, window.scrollY / maxScroll);
+    const fill = Math.floor(scrollRatio * 100);
+
+    header.style.borderImage = `linear-gradient(to right, #3a6ea5 ${fill}%, transparent ${fill}%) 1`;
+  });
+
+      document.querySelectorAll("#mobile-menu a").forEach(link => {
+      link.addEventListener("click", () => {
+        document.getElementById("mobile-menu").classList.remove("show");
+      });
+    });
+
+    window.addEventListener("resize", () => {
+      const mobileMenu = document.getElementById("mobile-menu");
+      const breakpoint = 750; // 👈 change this if needed
+
+      if (window.innerWidth > breakpoint && mobileMenu.classList.contains("show")) {
+        mobileMenu.classList.remove("show");
+      }
+    });
+</script>
+<script>
+    window.addEventListener("resize", () => {
+      const mobileMenu = document.getElementById("mobile-menu");
+      const breakpoint = 750; // 👈 change this if needed
+
+      if (window.innerWidth > breakpoint && mobileMenu.classList.contains("show")) {
+        mobileMenu.classList.remove("show");
+      }
+    });
+</script>
+</html>
