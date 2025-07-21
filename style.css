@@ -153,7 +153,7 @@ header {
    LAYOUT SECTIONS
    ========================================================================== */
 main {
-  padding: 2em;
+  padding: 2em 2em;
 }
 
 footer {
@@ -883,6 +883,10 @@ footer p {
 
   .search-box {
     align-self:flex-start;
+  }
+
+  main {
+    padding: 3em 1em;
   }
 
 }
