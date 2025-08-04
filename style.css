@@ -190,6 +190,7 @@ th, td {
 .profile-pic {
   max-width: 300px;
   border-radius: 8px;
+  min-width: none;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -836,11 +837,16 @@ footer p {
     flex-direction: column;
     align-items: center;
     text-align: justify;
-    text-align-last: initial;
+    text-align-last: left;
+    hyphens: auto;
+    overflow-wrap: break-word;
+    word-wrap: break-word;      /* legacy support */
+    -webkit-hyphens: auto;      /* Safari support */
+    -ms-hyphens: auto;          /* IE support */
   }
 
   .profile-pic {
-    max-width: 100%;
+    max-width: 90%;
     margin-bottom: 1em;
   }
 
