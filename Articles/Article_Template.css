@@ -246,6 +246,7 @@ header {
 
 .captioned-image img {
   max-width: 100%;
+  max-height: 400px;
   height: auto;
   border-radius: 6px;
 }
@@ -470,7 +471,6 @@ header {
   .article-date {
     color: #aaa;
   }
-
 }
 
 

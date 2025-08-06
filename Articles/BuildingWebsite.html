@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="title" content="Building a personal website with Microsoft Copilot"/>
+    <meta name="date" content="2025-07-19" />
+    <meta name="tags" content="Coding, Web Developement, Luke's Favorites" />
+    <meta name="thumbnail" content="Articles/Images/Website_Header.png"/>
+    <meta name="summary" content="Summary of article"/>
+    <title>Luke Buck | Article</title>
+    <link rel="stylesheet" href="Article_Template.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+  <div class="header-container">
+      <h2 class="site-name">
+        <a href="../index.html">Luke Buck</a>
+      </h2>
+      <nav class="desktop-nav">
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#education">Education</a>
+        <a href="../index.html#articles">Projects</a>
+        <a href="../index.html#experience">Experience</a>
+        <a href="../index.html#music">Music</a>
+        <a href="../index.html#certs">Certifications</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+      <button id="menu-toggle">☰</button>
+    </div>
+    <nav id="mobile-menu">
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#education">Education</a>
+      <a href="../index.html#articles">Projects</a>
+      <a href="../index.html#experience">Experience</a>
+      <a href="../index.html#music">Music</a>
+      <a href="../index.html#certs">Certifications</a>
+      <a href="../index.html#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- 📝 TITLE + SUMMARY -->
+  <main class="article-main">
+    <div class="back-wrapper">
+      <a href="../projects.html" class="back-link">← Projects & Research</a>
+    </div>
+    <h1 class="article-title">Building a personal website with Microsoft Copilot</h1>
+    <img src="Images/Website_Header.png" alt="Main visual" class="main-article-image" />
+    <p class="article-summary">How I built this website using Microscoft's AI companion.</p>
+      <p class="article-date">Published: July 19, 2025</p>
+    <p class="article-date">Tags: Coding, Web Developement, Luke's Favorites</p>
+    <p class="article-author">By Luke Buck</p>
+
+    <!-- 🧾 ARTICLE CONTENT -->
+    <article class="article-body">
+      <p>This summer I set out to create a personal website. I wanted a more custom way to showcase my skills and experience than most young professionals. I wanted to stand out. With a background in Python and Java I figured I would pick up HTML quickly. Then an even better thought came to mind - what if I use AI to create a website for me?</p>
+
+      <p>During my engineering program at UMaine, I hardly used AI. Not only did professors discourage its use, but it was an unreliable tool; it was unable to reliably solve even simple thermodynamics problems. With all the hype around AI though, I figured it was time to see its potential. Hardly familiar with ChatGPT, I opted for Microsoft's Copilot. It easy to use and worked better than expected. 
+      </p>
+
+      <h2 class="section-heading">Prompting</h2>
+      <p>I started out by asking for a simple website with a navigation bar. I gave Copilot a general idea of color themes, layout, etc. Copilot delivered initial HTML code and CSS styling. From there I began improving and adding features to the website - some ideas mine, some Copilot's. Once the home page was developed I moved to creating a page to showcase my research and projects. Finally, Copilot created a template for articles like this one.
+      </p>
+
+      <h2 class="section-heading">Challenges</h2>
+      <p>Copilot had trouble implementing some of my ideas. Here I had to rely on my coding background and troubleshoot the code myself. Even after informing Copilot of bugs and their potential causes, the chatbot was unable to correct the code. Of all these toubles, the carousels on the home page caused the most headache. Shown below, the carousels are meant to show several cards, each with unique information. 
+      </p>
+
+      <figure class="captioned-image">
+        <source srcset="Images/Carousel_Dark.png" media="(prefers-color-scheme: dark)">
+        <img src="Images/Carousel.png" alt="Visual for theme" />
+        <figcaption>Figure 1: Music carousel on home page.</figcaption>
+      </figure>
+
+      <p>The carousel is meant to be scrollable when its contents extend beyond the display size. Depending on the number of cards in the carousel this might happen on a typical computer display, and most definitely will occur on a smart phone display. Below is the same carousel on a smaller display. 
+      </p>
+
+      <figure class="captioned-image">
+        <source srcset="Images/Carousel_Dark2.png" media="(prefers-color-scheme: dark)">
+        <img src="Images/Carousel2.png" alt="Visual for theme" />
+        <figcaption>Figure 2: Music carousel on smaller display.</figcaption>
+      </figure>
+
+      <p>Copilot was able to create the original carousel and it's cards with no problem. Making the carousel scrollable when needed was not so easy. Here I had to modify the code, especially the script listening for display resizing. Additionally, Copilot had trouble only displaying navigation dots when the carousel extended beyond the device display.
+      </p>
+
+      <p>Copilot had trouble with lots of other small touches that you might not even notice. For example the footer was difficult to format, the navigation header was hard to size and change dynamically for smaller displays. The border along the header showing scrolling progress on a page was really tricky as well. I'll spare the details, just know Copilot was far from perfect.
+      </p>
+      
+      <h2 class="section-heading">Surprises</h2>
+      <p>There were a few things that Copilot did surprisingly well. Of all these things, I was most surprised it was able to create a search bar to find articles on my Projects & Research page. The search bar searches for matching articles based on title and tags. Suggested matches autopopulate below the search bar with the article thumbnail and title. Just as impressive, Copilot was able to create a filter for articles based on creation date and tags. 
+      </p>
+
+      <h2 class="section-heading">Summary</h2>
+      <p>Overall I was impressed with Copilot's ability to create this website. It did save time compared to building the website from scratch. One big takeaway however, is that it takes longer to troubleshoot code you didn't write. Using Copilot was still a time-saver, but I wouldn't want anyone looking under the hood on this website. I'm sure there are coutless blocks of code that are repetitive or completely uneccesary that I could trim-down or completely elimate if I looked through the code in its entirety.</p>
+      
+      <p class="note">And finally, no I did not use AI to write this article!</p>
+
+    </article>
+  </main>
+
+  <footer>
+  <p id="updated-footer">Last updated: <span id="updated-date"></span></p>
+  <p class="signature">Tell your dog I say hi!</p>
+  <p class="social-links">
+    <a href="https://linkedin.com/in/luke-a-buck" target="_blank">
+      <img src="../Images/linkedin.png" alt="LinkedIn" class="social-icon">
+    </a>
+  </p>
+</footer>
+
+</body>
+
+<script>
+  // Last updated script
+  document.getElementById("updated-date").textContent =
+    new Date(document.lastModified).toLocaleDateString();
+</script>
+
+<script>
+    // ========== MOBILE MENU ==========
+    const menuToggle = document.getElementById("menu-toggle");
+    const mobileMenu = document.getElementById("mobile-menu");
+    menuToggle.addEventListener("click", () => {
+        mobileMenu.classList.toggle("show");
+    });
+
+</script>
+
+<script>
+  window.addEventListener("scroll", () => {
+    const header = document.querySelector("header");
+    const maxScroll = document.body.scrollHeight - window.innerHeight;
+    const scrollRatio = Math.min(1, window.scrollY / maxScroll);
+    const fill = Math.floor(scrollRatio * 100);
+
+    header.style.borderImage = `linear-gradient(to right, #3a6ea5 ${fill}%, transparent ${fill}%) 1`;
+  });
+
+      document.querySelectorAll("#mobile-menu a").forEach(link => {
+      link.addEventListener("click", () => {
+        document.getElementById("mobile-menu").classList.remove("show");
+      });
+    });
+
+    window.addEventListener("resize", () => {
+      const mobileMenu = document.getElementById("mobile-menu");
+      const breakpoint = 750; // 👈 change this if needed
+
+      if (window.innerWidth > breakpoint && mobileMenu.classList.contains("show")) {
+        mobileMenu.classList.remove("show");
+      }
+    });
+</script>
+<script>
+    window.addEventListener("resize", () => {
+      const mobileMenu = document.getElementById("mobile-menu");
+      const breakpoint = 750; // 👈 change this if needed
+
+      if (window.innerWidth > breakpoint && mobileMenu.classList.contains("show")) {
+        mobileMenu.classList.remove("show");
+      }
+    });
+</script>
+</html>

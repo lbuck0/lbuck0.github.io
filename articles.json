@@ -1,13 +1,14 @@
 [
   {
-    "title": "Building a website with Microsoft Copilot",
+    "title": "Building a personal website with Microsoft Copilot",
     "summary": "Summary of article",
-    "image": "Articles/Images/WebsiteHeader.png",
+    "image": "Articles/Images/Website_Header.png",
     "date": "2025-07-19",
     "tags": [
       "Coding",
-      "Projects"
+      "Web Developement",
+      "Luke's Favorites"
     ],
-    "link": "Articles/test1.html"
+    "link": "Articles/BuildingWebsite.html"
   }
 ]
