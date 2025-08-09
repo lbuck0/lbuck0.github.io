@@ -141,35 +141,126 @@
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script> <!-- date adapter -->
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+
 <script>
+  // ✅ Custom plugin to draw vertical line + ball + label
+  const verticalLinePlugin = {
+    id: 'verticalLine',
+    afterDraw(chart) {
+      const tooltip = chart.tooltip;
+      if (tooltip && tooltip._active && tooltip._active.length) {
+        const ctx = chart.ctx;
+        const activePoint = tooltip._active[0];
+        const x = activePoint.element.x;
+        const y = activePoint.element.y;
+        const topY = chart.chartArea.top;
+        const bottomY = chart.chartArea.bottom;
+
+        // Detect dark mode
+        const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        // Draw vertical line
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(x, topY - 10);
+        ctx.lineTo(x, bottomY);
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = '#aaa';
+        ctx.stroke();
+        ctx.restore();
+
+        // Draw ball at intersection
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(x, y, 7, 0, 2 * Math.PI);
+        ctx.fillStyle = '#3a6ea5';
+        ctx.fill();
+        ctx.strokeStyle = '#fff';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        ctx.restore();
+
+        // Draw label above chart
+        const value = activePoint.element.$context.raw.y;
+        const date = activePoint.element.$context.raw.x;
+        const formattedValue = value.toLocaleString(); // ✅ Adds commas
+        const labelText = `${formattedValue} | ${new Date(date).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short"
+        })}`;
+
+        ctx.font = '14px Segoe UI';
+        ctx.fillStyle = isDarkMode ? '#eee' : '#333'; // ✅ Light text in dark mode
+        ctx.textBaseline = 'bottom';
+
+        const textWidth = ctx.measureText(labelText).width;
+        const chartLeft = chart.chartArea.left;
+        const chartRight = chart.chartArea.right;
+
+        // Determine alignment
+        let textAlign = 'center';
+        if (x - textWidth / 2 < chartLeft) {
+          textAlign = 'left';
+        } else if (x + textWidth / 2 > chartRight) {
+          textAlign = 'right';
+        }
+        ctx.textAlign = textAlign;
+
+        // Adjust x position if needed
+        let labelX = x;
+        if (textAlign === 'left') labelX = chartLeft + 4;
+        if (textAlign === 'right') labelX = chartRight - 4;
+
+        const labelY = chart.chartArea.top - 12;
+        ctx.fillText(labelText, labelX, labelY);
+      }
+    }
+  };
+
+  // ✅ Load CSV and render chart
   async function fetchCSVData() {
-  const response = await fetch('Data/Public_Companies.csv');
-  const text = await response.text();
-  const rows = text.trim().split('\n').slice(1); // skip header
+    const response = await fetch('Data/Public_Companies.csv');
+    const text = await response.text();
+    const rows = text.trim().split('\n').slice(1); // Skip header
 
-  const data = [];
+    const data = rows.map(row => {
+      const [label, value] = row.split(',');
+      return {
+        x: new Date(label),
+        y: parseFloat(value)
+      };
+    });
 
-  rows.forEach(row => {
-    const [label, value] = row.split(',');
-    const date = new Date(label); // Convert label to Date object
-    data.push({ x: date, y: parseFloat(value) }); // Use {x, y} format for time scale
-  });
+    renderChart(data);
+  }
 
-  renderChart(data);
-}
-
+  // ✅ Render Chart.js line chart
+  let chartInstance = null;
 
 function renderChart(data) {
   const ctx = document.getElementById('myChart').getContext('2d');
-  new Chart(ctx, {
+
+  if (chartInstance) {
+    chartInstance.destroy(); // ✅ Clean up previous chart
+  }
+
+  const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const gridColor = isDarkMode ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0, 0, 0, 0.05)';
+  const tickColor = isDarkMode ? '#eee' : '#333';
+
+  const gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
+  gradient.addColorStop(0, 'rgba(58, 110, 165, 0.7)');
+  gradient.addColorStop(1, 'rgba(58, 110, 165, 0.1)');
+
+  chartInstance = new Chart(ctx, {
     type: 'line',
     data: {
       datasets: [{
         label: 'Public Companies',
         data: data,
         borderColor: '#3a6ea5',
-        backgroundColor: 'rgba(58, 110, 165, 0.1)',
+        backgroundColor: gradient,
         fill: true,
         tension: 0.4,
         pointRadius: 0,
@@ -178,26 +269,19 @@ function renderChart(data) {
     },
     options: {
       responsive: true,
+      interaction: {
+        mode: 'index',
+        intersect: false
+      },
+      layout: {
+        padding: {
+          top: 50,
+          right: 5
+        }
+      },
       plugins: {
         tooltip: {
-          enabled: true,
-          intersect: false,
-          callbacks: {
-            title: (tooltipItems) => {
-              // Get the raw timestamp from the parsed x value
-              const timestamp = tooltipItems[0].parsed.x;
-
-              // Convert to Date safely
-              const date = typeof timestamp === 'number' ? new Date(timestamp) : new Date(tooltipItems[0].label);
-
-              // Format the date
-              return date.toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "short",
-              });
-            },
-            label: (tooltipItem) => `Public Companies: ${tooltipItem.formattedValue}`
-          }
+          enabled: false
         },
         legend: {
           display: false
@@ -205,85 +289,58 @@ function renderChart(data) {
       },
       scales: {
         x: {
-          type: 'time', // 👈 enable time scale
+          type: 'time',
           min: '1970-01-01',
           bounds: 'ticks',
+  
           time: {
-            unit: 'year', // or 'day', 'year', etc.
+            unit: 'year',
             displayFormats: {
-              month: 'yyyy' // 👈 customize format here
+              month: 'yyyy'
             }
           },
-          title: {
-            display: true,
-            text: 'Year',
-            font: {size: 14, family: 'Segoe UI'}
-          },
           ticks: {
-            color: '#333',
-            source: 'auto', // Let Chart.js generate ticks
-            autoSkip: false, // Prevent skipping
-            maxTicksLimit: 20, // Optional: limit total ticks
             font: {
               size: 14,
               family: 'Segoe UI'
-            }
+            },
+            color: tickColor,
+            minTicksLimit: 4,   // ✅ Minimum number of ticks
+            maxTicksLimit: 8,   // ✅ Maximum number of ticks
           },
           grid: {
-            display: false
+            display: false,
+            color: gridColor
           }
         },
         y: {
-          title: {
-            display: true,
-            text: 'Public Companies',
-            font: {size: 14, family: 'Segoe UI'}
-          },
+          beginAtZero: false,
           ticks: {
-            color: '#333',
-            source: 'auto', // Let Chart.js generate ticks
-            autoSkip: false, // Prevent skipping
-            maxTicksLimit: 15, // Optional: limit total ticks
             font: {
               size: 14,
               family: 'Segoe UI'
-            }
+            },
+            color: tickColor,
+            minTicksLimit: 4,
+            maxTicksLimit: 8   // ✅ Maximum number of ticks
           },
           grid: {
-            display: false
-          },
-          beginAtZero: true
+            display: true,
+            drawOnChartArea: true,
+            color: gridColor
+          }
         }
       }
-    }
+    },
+    plugins: [verticalLinePlugin]
   });
 }
-
+  // ✅ Kick off the chart rendering
   fetchCSVData();
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+  fetchCSVData(); // ✅ Re-fetch and re-render chart on theme change
+});
+
 </script>
-<script>
-  document.getElementById('downloadCSV').addEventListener('click', async () => {
-    try {
-      const response = await fetch('Data/Public_Companies.csv');
-      if (!response.ok) throw new Error('File not found');
-      const csv = await response.text();
-
-      const blob = new Blob([csv], { type: 'text/csv' });
-      const url = URL.createObjectURL(blob);
-
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = 'Public_Companies.csv';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-    } catch (err) {
-      console.error('Download failed:', err);
-      alert('Sorry, the CSV file could not be downloaded.');
-    }
-  });
-</script>
-
 
 </html>
