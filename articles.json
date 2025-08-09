@@ -1,7 +1,7 @@
 [
   {
     "title": "Building a personal website with Microsoft Copilot",
-    "summary": "Summary of article",
+    "summary": "How I built this website using Microscoft's AI companion",
     "image": "Articles/Images/Website_Header.png",
     "date": "2025-07-19",
     "tags": [
@@ -10,5 +10,16 @@
       "Luke's Favorites"
     ],
     "link": "Articles/BuildingWebsite.html"
+  },
+  {
+    "title": "Number of Public Companies 1970-2023",
+    "summary": "History of listings on NYSE, AMEX & NASDAQ",
+    "image": "Articles/Images/WallStreet.webp",
+    "date": "2025-08-6",
+    "tags": [
+      "Coding",
+      "Stock Market"
+    ],
+    "link": "Articles/PublicCompanies.html"
   }
 ]

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="title" content="Number of Public Companies 1970-2023"/>
+    <meta name="date" content="2025-08-6" />
+    <meta name="tags" content="Coding, Stock Market" />
+    <meta name="thumbnail" content="Articles/Images/WallStreet.webp"/>
+    <meta name="summary" content="History of listings on NYSE, AMEX & NASDAQ"/>
+    <title>Luke Buck | Number of Public Companies 1970-2023</title>
+    <link rel="stylesheet" href="Article_Template.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+  <div class="header-container">
+      <h2 class="site-name">
+        <a href="../index.html">Luke Buck</a>
+      </h2>
+      <nav class="desktop-nav">
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#education">Education</a>
+        <a href="../index.html#articles">Projects</a>
+        <a href="../index.html#experience">Experience</a>
+        <a href="../index.html#music">Music</a>
+        <a href="../index.html#certs">Certifications</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+      <button id="menu-toggle">☰</button>
+    </div>
+    <nav id="mobile-menu">
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#education">Education</a>
+      <a href="../index.html#articles">Projects</a>
+      <a href="../index.html#experience">Experience</a>
+      <a href="../index.html#music">Music</a>
+      <a href="../index.html#certs">Certifications</a>
+      <a href="../index.html#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- 📝 TITLE + SUMMARY -->
+  <main class="article-main">
+    <div class="back-wrapper">
+      <a href="../projects.html" class="back-link">← Projects & Research</a>
+    </div>
+    <h1 class="article-title">Number of Public Companies 1970-2023</h1>
+    <img src="Images/WallStreet.webp" alt="Main visual" class="main-article-image-bottom" />
+    <p class="article-summary">History of listings on NYSE, AMEX & NASDAQ</p>
+      <p class="article-date">Published: August 6, 2025</p>
+    <p class="article-date">Tags: Coding, Stock Market</p>
+    <p class="article-author">By Luke Buck</p>
+
+    <!-- 🧾 ARTICLE CONTENT -->
+    <article class="article-body">
+
+      <p>Ever wonder how many companies are publicly traded? Turns out there has been a steady decline in the number of public companies since 1997. See below for a historical count of publicly listed companies on the NYSE, AMEX and NASDAQ exchanges.</p>
+
+      <div class="download-wrapper">
+        <button id="downloadCSV" class="back-button">Download CSV</button>
+      </div>
+
+      <canvas id="myChart" width="600" height="400"></canvas>
+
+      <p>Note that these results include corporations and real-estate investment trusts (REITs) from the three major american historical exchanges. Additionally, only companies with a common share class were included. 
+      </p>
+
+      <p>To my surprise, the number of publicly traded companies hasn't exceeded ten thousand in the last 60+ years. Note the introduction of the NASDAQ exchange in late 1972 doubled publicly traded companies.</p>
+
+      <p>I threw this plot together quickly using Python and market data from Compustat and CRSP. </p>
+      
+      <p class="note">And finally, no I did not use AI to write this article!</p>
+
+    </article>
+  </main>
+
+  <footer>
+  <p id="updated-footer">Last updated: <span id="updated-date"></span></p>
+  <p class="signature">Tell your dog I say hi!</p>
+  <p class="social-links">
+    <a href="https://linkedin.com/in/luke-a-buck" target="_blank">
+      <img src="../Images/linkedin.png" alt="LinkedIn" class="social-icon">
+    </a>
+  </p>
+</footer>
+
+</body>
+
+<script>
+  // Last updated script
+  document.getElementById("updated-date").textContent =
+    new Date(document.lastModified).toLocaleDateString();
+</script>
+
+<script>
+    // ========== MOBILE MENU ==========
+    const menuToggle = document.getElementById("menu-toggle");
+    const mobileMenu = document.getElementById("mobile-menu");
+    menuToggle.addEventListener("click", () => {
+        mobileMenu.classList.toggle("show");
+    });
+
+</script>
+
+<script>
+  window.addEventListener("scroll", () => {
+    const header = document.querySelector("header");
+    const maxScroll = document.body.scrollHeight - window.innerHeight;
+    const scrollRatio = Math.min(1, window.scrollY / maxScroll);
+    const fill = Math.floor(scrollRatio * 100);
+
+    header.style.borderImage = `linear-gradient(to right, #3a6ea5 ${fill}%, transparent ${fill}%) 1`;
+  });
+
+      document.querySelectorAll("#mobile-menu a").forEach(link => {
+      link.addEventListener("click", () => {
+        document.getElementById("mobile-menu").classList.remove("show");
+      });
+    });
+
+    window.addEventListener("resize", () => {
+      const mobileMenu = document.getElementById("mobile-menu");
+      const breakpoint = 750; // 👈 change this if needed
+
+      if (window.innerWidth > breakpoint && mobileMenu.classList.contains("show")) {
+        mobileMenu.classList.remove("show");
+      }
+    });
+</script>
+<script>
+    window.addEventListener("resize", () => {
+      const mobileMenu = document.getElementById("mobile-menu");
+      const breakpoint = 750; // 👈 change this if needed
+
+      if (window.innerWidth > breakpoint && mobileMenu.classList.contains("show")) {
+        mobileMenu.classList.remove("show");
+      }
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script> <!-- date adapter -->
+<script>
+  async function fetchCSVData() {
+  const response = await fetch('Data/Public_Companies.csv');
+  const text = await response.text();
+  const rows = text.trim().split('\n').slice(1); // skip header
+
+  const data = [];
+
+  rows.forEach(row => {
+    const [label, value] = row.split(',');
+    const date = new Date(label); // Convert label to Date object
+    data.push({ x: date, y: parseFloat(value) }); // Use {x, y} format for time scale
+  });
+
+  renderChart(data);
+}
+
+
+function renderChart(data) {
+  const ctx = document.getElementById('myChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      datasets: [{
+        label: 'Public Companies',
+        data: data,
+        borderColor: '#3a6ea5',
+        backgroundColor: 'rgba(58, 110, 165, 0.1)',
+        fill: true,
+        tension: 0.4,
+        pointRadius: 0,
+        pointHoverRadius: 0
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        tooltip: {
+          enabled: true,
+          intersect: false,
+          callbacks: {
+            title: (tooltipItems) => {
+              // Get the raw timestamp from the parsed x value
+              const timestamp = tooltipItems[0].parsed.x;
+
+              // Convert to Date safely
+              const date = typeof timestamp === 'number' ? new Date(timestamp) : new Date(tooltipItems[0].label);
+
+              // Format the date
+              return date.toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "short",
+              });
+            },
+            label: (tooltipItem) => `Public Companies: ${tooltipItem.formattedValue}`
+          }
+        },
+        legend: {
+          display: false
+        }
+      },
+      scales: {
+        x: {
+          type: 'time', // 👈 enable time scale
+          min: '1970-01-01',
+          bounds: 'ticks',
+          time: {
+            unit: 'year', // or 'day', 'year', etc.
+            displayFormats: {
+              month: 'yyyy' // 👈 customize format here
+            }
+          },
+          title: {
+            display: true,
+            text: 'Year',
+            font: {size: 14, family: 'Segoe UI'}
+          },
+          ticks: {
+            color: '#333',
+            source: 'auto', // Let Chart.js generate ticks
+            autoSkip: false, // Prevent skipping
+            maxTicksLimit: 20, // Optional: limit total ticks
+            font: {
+              size: 14,
+              family: 'Segoe UI'
+            }
+          },
+          grid: {
+            display: false
+          }
+        },
+        y: {
+          title: {
+            display: true,
+            text: 'Public Companies',
+            font: {size: 14, family: 'Segoe UI'}
+          },
+          ticks: {
+            color: '#333',
+            source: 'auto', // Let Chart.js generate ticks
+            autoSkip: false, // Prevent skipping
+            maxTicksLimit: 15, // Optional: limit total ticks
+            font: {
+              size: 14,
+              family: 'Segoe UI'
+            }
+          },
+          grid: {
+            display: false
+          },
+          beginAtZero: true
+        }
+      }
+    }
+  });
+}
+
+  fetchCSVData();
+</script>
+<script>
+  document.getElementById('downloadCSV').addEventListener('click', async () => {
+    try {
+      const response = await fetch('Data/Public_Companies.csv');
+      if (!response.ok) throw new Error('File not found');
+      const csv = await response.text();
+
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'Public_Companies.csv';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error('Download failed:', err);
+      alert('Sorry, the CSV file could not be downloaded.');
+    }
+  });
+</script>
+
+
+</html>
