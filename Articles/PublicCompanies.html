@@ -185,10 +185,10 @@
         const value = activePoint.element.$context.raw.y;
         const date = activePoint.element.$context.raw.x;
         const formattedValue = value.toLocaleString(); // ✅ Adds commas
-        const labelText = `${formattedValue} | ${new Date(date).toLocaleDateString("en-US", {
+        const labelText = `${new Date(date).toLocaleDateString("en-US", {
           year: "numeric",
           month: "short"
-        })}`;
+        })}: ${formattedValue}`;
 
         ctx.font = '14px Segoe UI';
         ctx.fillStyle = isDarkMode ? '#eee' : '#333'; // ✅ Light text in dark mode
@@ -302,7 +302,7 @@ function renderChart(data) {
           ticks: {
             font: {
               size: 14,
-              family: 'Segoe UI'
+              family: 'Segoe UI, system-ui, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif'
             },
             color: tickColor,
             minTicksLimit: 4,   // ✅ Minimum number of ticks
@@ -318,7 +318,7 @@ function renderChart(data) {
           ticks: {
             font: {
               size: 14,
-              family: 'Segoe UI'
+              family: 'Segoe UI, system-ui, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif'
             },
             color: tickColor,
             minTicksLimit: 4,
