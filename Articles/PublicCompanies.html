@@ -62,7 +62,7 @@
         <button id="downloadCSV" class="back-button">Download CSV</button>
       </div>
 
-      <canvas id="myChart" width="600" height="400"></canvas>
+      <canvas id="myChart" width="600" height="400" min-height="300"></canvas>
 
       <p>Note that these results include corporations and real-estate investment trusts (REITs) from the three major american historical exchanges. Additionally, only companies with a common share class were included. 
       </p>
@@ -340,7 +340,30 @@ function renderChart(data) {
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
   fetchCSVData(); // ✅ Re-fetch and re-render chart on theme change
 });
+</script>
 
+<script>
+  document.getElementById('downloadCSV').addEventListener('click', async () => {
+    try {
+      const response = await fetch('Data/Public_Companies.csv');
+      if (!response.ok) throw new Error('File not found');
+      const csv = await response.text();
+
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'Public_Companies.csv';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error('Download failed:', err);
+      alert('Sorry, the CSV file could not be downloaded.');
+    }
+  });
 </script>
 
 </html>
