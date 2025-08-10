@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="title" content="Historical Volume of Public Companies"/>
-    <meta name="date" content="2025-08-6" />
+    <meta name="title" content="Total U.S. Market Capitalization History"/>
+    <meta name="date" content="2025-08-10" />
     <meta name="tags" content="Coding, Stock Market" />
-    <meta name="thumbnail" content="Articles/Images/WallStreet.webp"/>
-    <meta name="summary" content="History of listings on NYSE, AMEX & NASDAQ exchanges"/>
-    <title>Luke Buck | Number of Public Companies 1970-2023</title>
+    <meta name="thumbnail" content="Articles/Images/WallStreet2.webp"/>
+    <meta name="summary" content="Combined capitalization history of all public companies"/>
+    <title>Luke Buck | Total Market Capitalization History</title>
     <link rel="stylesheet" href="Article_Template.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
 </head>
@@ -46,17 +46,17 @@
     <div class="back-wrapper">
       <a href="../projects.html" class="back-link">← Projects & Research</a>
     </div>
-    <h1 class="article-title">Historical Volume of Public Companies</h1>
-    <img src="Images/WallStreet.webp" alt="Main visual" class="main-article-image-bottom" />
-    <p class="article-summary">History of listings on NYSE, AMEX & NASDAQ exchanges</p>
-      <p class="article-date">Published: August 6, 2025</p>
+    <h1 class="article-title">Total U.S. Market Capitalization History</h1>
+    <img src="Images/WallStreet2.webp" alt="Main visual" class="main-article-image-bottom" />
+    <p class="article-summary">Combined capitalization history of all public companies</p>
+      <p class="article-date">Published: August 10, 2025</p>
     <p class="article-date">Tags: Coding, Stock Market</p>
     <p class="article-author">By Luke Buck</p>
 
     <!-- 🧾 ARTICLE CONTENT -->
     <article class="article-body">
 
-      <p>Ever wonder how many companies are publicly traded? Turns out there has been a steady decline in the number of public companies since 1997. See below for a historical count of publicly listed companies on the NYSE, AMEX and NASDAQ exchanges.</p>
+      <p>America's wealth has exploded over the past century. The total capitalization of all publicly traded stocks is a great testament to this. See the combined capitalization of all public companies below.</p>
 
       <div class="download-wrapper">
         <button id="downloadCSV" class="back-button">Download CSV</button>
@@ -64,10 +64,7 @@
 
       <canvas id="myChart" width="600" height="400" min-height="300"></canvas>
 
-      <p>These results include corporations and real-estate investment trusts (REITs) with common share classes from the three major american historical exchanges.
-      </p>
-
-      <p>Quickly scanning the data, you'll see that the number of publicly traded companies has never been all that high. The number peaked in 1997 around 8,000 public companies. Since then we've seen steady decline to around 5,000. You'll also notice a large jump in the data around 1972. This is when the NASDAQ exchange was formed. The introduction of the NASDAQ doubled the number of public companies.</p>
+      <p>The effects of the dot-com bubble, 2008 financial crisis and the covid pandemic are very apparent in the data. Less talked about, 2022 saw stocks lose 20% of total market value following the post-covid bubble in 2021. Scanning the chart, market volatility also seems to have increased dramatically since the dot-com bubble.</p>
 
       <p>I gathered this data from CRSP's (Center for Research in Security Prices) monthly stock file and used Python to sort the data accordingly. Hope you enjoy!</p>
     </article>
@@ -141,6 +138,31 @@
 <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
 
 <script>
+  // ✅ Smart formatter for large numbers
+function formatLargeNumber(value, decimals = 1) {
+  const absValue = Math.abs(value);
+  let scaled, suffix;
+
+  if (absValue >= 1_000_000_000_000) {
+    scaled = value / 1_000_000_000_000;
+    suffix = 'T';
+  } else if (absValue >= 1_000_000_000) {
+    scaled = value / 1_000_000_000;
+    suffix = 'B';
+  } else if (absValue >= 1_000_000) {
+    scaled = value / 1_000_000;
+    suffix = 'M';
+  } else if (absValue >= 1_000) {
+    scaled = value / 1_000;
+    suffix = 'K';
+  } else {
+    scaled = value;
+    suffix = '';
+  }
+
+  return scaled.toFixed(decimals) + suffix;
+}
+
   // ✅ Custom plugin to draw vertical line + ball + label
   const verticalLinePlugin = {
     id: 'verticalLine',
@@ -181,21 +203,20 @@
         // Draw label above chart
         const value = activePoint.element.$context.raw.y;
         const date = activePoint.element.$context.raw.x;
-        const formattedValue = value.toLocaleString(); // ✅ Adds commas
+        const formattedValue = formatLargeNumber(value,1);
         const labelText = `${new Date(date).toLocaleDateString("en-US", {
           year: "numeric",
           month: "short"
         })}: ${formattedValue}`;
 
         ctx.font = '14px "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif';
-        ctx.fillStyle = isDarkMode ? '#eee' : '#333'; // ✅ Light text in dark mode
+        ctx.fillStyle = isDarkMode ? '#eee' : '#333';
         ctx.textBaseline = 'bottom';
 
         const textWidth = ctx.measureText(labelText).width;
         const chartLeft = chart.chartArea.left;
         const chartRight = chart.chartArea.right;
 
-        // Determine alignment
         let textAlign = 'center';
         if (x - textWidth / 2 < chartLeft) {
           textAlign = 'left';
@@ -204,7 +225,6 @@
         }
         ctx.textAlign = textAlign;
 
-        // Adjust x position if needed
         let labelX = x;
         if (textAlign === 'left') labelX = chartLeft + 4;
         if (textAlign === 'right') labelX = chartRight - 4;
@@ -217,9 +237,9 @@
 
   // ✅ Load CSV and render chart
   async function fetchCSVData() {
-    const response = await fetch('Data/Public_Companies.csv');
+    const response = await fetch('Data/USA_MarketCap.csv');
     const text = await response.text();
-    const rows = text.trim().split('\n').slice(1); // Skip header
+    const rows = text.trim().split('\n').slice(1);
 
     const data = rows.map(row => {
       const [label, value] = row.split(',');
@@ -232,117 +252,121 @@
     renderChart(data);
   }
 
+
   // ✅ Render Chart.js line chart
   let chartInstance = null;
 
-function renderChart(data) {
-  const ctx = document.getElementById('myChart').getContext('2d');
+  function renderChart(data) {
+    const ctx = document.getElementById('myChart').getContext('2d');
 
-  if (chartInstance) {
-    chartInstance.destroy(); // ✅ Clean up previous chart
-  }
+    if (chartInstance) {
+      chartInstance.destroy();
+    }
 
-  const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const gridColor = isDarkMode ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0, 0, 0, 0.05)';
-  const tickColor = isDarkMode ? '#eee' : '#333';
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const gridColor = isDarkMode ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0, 0, 0, 0.05)';
+    const tickColor = isDarkMode ? '#eee' : '#333';
 
-  const gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
-  gradient.addColorStop(0, 'rgba(58, 110, 165, 0.7)');
-  gradient.addColorStop(1, 'rgba(58, 110, 165, 0.1)');
+    const gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
+    gradient.addColorStop(0, 'rgba(58, 110, 165, 0.7)');
+    gradient.addColorStop(1, 'rgba(58, 110, 165, 0.1)');
 
-  chartInstance = new Chart(ctx, {
-    type: 'line',
-    data: {
-      datasets: [{
-        label: 'Public Companies',
-        data: data,
-        borderColor: '#3a6ea5',
-        backgroundColor: gradient,
-        fill: true,
-        tension: 0.4,
-        pointRadius: 0,
-        pointHoverRadius: 0
-      }]
-    },
-    options: {
-      responsive: true,
-      interaction: {
-        mode: 'index',
-        intersect: false
+    chartInstance = new Chart(ctx, {
+      type: 'line',
+      data: {
+        datasets: [{
+          label: 'Public Companies',
+          data: data,
+          borderColor: '#3a6ea5',
+          backgroundColor: gradient,
+          fill: true,
+          tension: 0.4,
+          pointRadius: 0,
+          pointHoverRadius: 0
+        }]
       },
-      layout: {
-        padding: {
-          top: 50,
-          right: 5
-        }
-      },
-      plugins: {
-        tooltip: {
-          enabled: false
+      options: {
+        responsive: true,
+        interaction: {
+          mode: 'index',
+          intersect: false
         },
-        legend: {
-          display: false
-        }
-      },
-      scales: {
-        x: {
-          type: 'time',
-          min: '1970-01-01',
-          bounds: 'ticks',
-  
-          time: {
-            unit: 'year',
-            displayFormats: {
-              month: 'yyyy'
+        layout: {
+          padding: {
+            top: 50,
+            right: 5
+          }
+        },
+        plugins: {
+          tooltip: {
+            enabled: false
+          },
+          legend: {
+            display: false
+          }
+        },
+        scales: {
+          x: {
+            type: 'time',
+            min: '1970-01-01',
+            bounds: 'ticks',
+            time: {
+              unit: 'year',
+              displayFormats: {
+                month: 'yyyy'
+              }
+            },
+            ticks: {
+              font: {
+                size: 14,
+                family: 'Segoe UI, system-ui, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif'
+              },
+              color: tickColor,
+              minTicksLimit: 3,
+              maxTicksLimit: 6
+            },
+            grid: {
+              display: false,
+              color: gridColor
             }
           },
-          ticks: {
-            font: {
-              size: 14,
-              family: 'Segoe UI, system-ui, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif'
+          y: {
+            beginAtZero: false,
+            ticks: {
+              callback: function(value) {
+                return formatLargeNumber(value,0);
+              },
+              font: {
+                size: 14,
+                family: 'Segoe UI, system-ui, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif'
+              },
+              color: tickColor,
+              minTicksLimit: 3,
+              maxTicksLimit: 5
             },
-            color: tickColor,
-            minTicksLimit: 3,   // ✅ Minimum number of ticks
-            maxTicksLimit: 6,   // ✅ Maximum number of ticks
-          },
-          grid: {
-            display: false,
-            color: gridColor
-          }
-        },
-        y: {
-          beginAtZero: false,
-          ticks: {
-            font: {
-              size: 14,
-              family: 'Segoe UI, system-ui, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif'
-            },
-            color: tickColor,
-            minTicksLimit: 3,
-            maxTicksLimit: 5   // ✅ Maximum number of ticks
-          },
-          grid: {
-            display: true,
-            drawOnChartArea: true,
-            color: gridColor
+            grid: {
+              display: true,
+              drawOnChartArea: true,
+              color: gridColor
+            }
           }
         }
-      }
-    },
-    plugins: [verticalLinePlugin]
-  });
-}
+      },
+      plugins: [verticalLinePlugin]
+    });
+  }
+
   // ✅ Kick off the chart rendering
   fetchCSVData();
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-  fetchCSVData(); // ✅ Re-fetch and re-render chart on theme change
-});
+    fetchCSVData();
+  });
 </script>
 
 <script>
   document.getElementById('downloadCSV').addEventListener('click', async () => {
     try {
-      const response = await fetch('Data/Public_Companies.csv');
+      const response = await fetch('Data/USA_MarketCap.csv');
       if (!response.ok) throw new Error('File not found');
       const csv = await response.text();
 
@@ -351,7 +375,7 @@ function renderChart(data) {
 
       const link = document.createElement('a');
       link.href = url;
-      link.download = 'Public_Companies.csv';
+      link.download = 'USA_MarketCap.csv';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);

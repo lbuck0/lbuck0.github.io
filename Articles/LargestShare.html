@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="title" content="Historical Volume of Public Companies"/>
-    <meta name="date" content="2025-08-6" />
+    <meta name="title" content="Largest Companies as Share of Market Value"/>
+    <meta name="date" content="2025-08-11" />
     <meta name="tags" content="Coding, Stock Market" />
-    <meta name="thumbnail" content="Articles/Images/WallStreet.webp"/>
-    <meta name="summary" content="History of listings on NYSE, AMEX & NASDAQ exchanges"/>
-    <title>Luke Buck | Number of Public Companies 1970-2023</title>
+    <meta name="thumbnail" content="Articles/Images/BigCompanies.svg"/>
+    <meta name="summary" content="Percent of market capitalization attributed to the largest company"/>
+    <title>Luke Buck | Largest Companies as Share of Total Market Value</title>
     <link rel="stylesheet" href="Article_Template.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
 </head>
@@ -46,17 +46,17 @@
     <div class="back-wrapper">
       <a href="../projects.html" class="back-link">← Projects & Research</a>
     </div>
-    <h1 class="article-title">Historical Volume of Public Companies</h1>
-    <img src="Images/WallStreet.webp" alt="Main visual" class="main-article-image-bottom" />
-    <p class="article-summary">History of listings on NYSE, AMEX & NASDAQ exchanges</p>
-      <p class="article-date">Published: August 6, 2025</p>
+    <h1 class="article-title">Largest Companies as Share of Total Market Value</h1>
+    <img src="Images/BigCompanies.svg" alt="Main visual" class="main-article-image" />
+    <p class="article-summary">Percent of market capitalization attributed to the largest company</p>
+      <p class="article-date">Published: August 11, 2025</p>
     <p class="article-date">Tags: Coding, Stock Market</p>
     <p class="article-author">By Luke Buck</p>
 
     <!-- 🧾 ARTICLE CONTENT -->
     <article class="article-body">
 
-      <p>Ever wonder how many companies are publicly traded? Turns out there has been a steady decline in the number of public companies since 1997. See below for a historical count of publicly listed companies on the NYSE, AMEX and NASDAQ exchanges.</p>
+      <p>It's interesting to look through the stock market's most valuable companies historically. Even more intersting is the percent of total U.S. market value attributed to the largest companies. Below is a history of the relative size of America's largest companies when compared to the entire market value (the largest company's market capitalization divided by total U.S. market value).</p>
 
       <div class="download-wrapper">
         <button id="downloadCSV" class="back-button">Download CSV</button>
@@ -64,10 +64,8 @@
 
       <canvas id="myChart" width="600" height="400" min-height="300"></canvas>
 
-      <p>These results include corporations and real-estate investment trusts (REITs) with common share classes from the three major american historical exchanges.
+      <p>The label at the top of the chart displays the percent of U.S. total market value and the corresponding company. IBM, General Electric, Exxon Mobil and Apple dominate the list of most valuable companies since the '70s. Notice the decrease in largest company size compared to the total market value from 1990 to 2020. Though several reasons might explain this, I think IBM's fall from its Wall Street poster-boy-status contributed to this decline. Additionally, <a href="USAMarketCap.html" target="_blank" rel="noopener">stock market value has exploded since 1990 at  unprecedented rates</a>, making it difficult for companies to hold a large percent of total U.S. market value.    
       </p>
-
-      <p>Quickly scanning the data, you'll see that the number of publicly traded companies has never been all that high. The number peaked in 1997 around 8,000 public companies. Since then we've seen steady decline to around 5,000. You'll also notice a large jump in the data around 1972. This is when the NASDAQ exchange was formed. The introduction of the NASDAQ doubled the number of public companies.</p>
 
       <p>I gathered this data from CRSP's (Center for Research in Security Prices) monthly stock file and used Python to sort the data accordingly. Hope you enjoy!</p>
     </article>
@@ -181,11 +179,12 @@
         // Draw label above chart
         const value = activePoint.element.$context.raw.y;
         const date = activePoint.element.$context.raw.x;
-        const formattedValue = value.toLocaleString(); // ✅ Adds commas
+        const company = activePoint.element.$context.raw.z;
+        const formattedValue = value.toFixed(2);
         const labelText = `${new Date(date).toLocaleDateString("en-US", {
           year: "numeric",
           month: "short"
-        })}: ${formattedValue}`;
+        })}: ${formattedValue}% - ${company}`;
 
         ctx.font = '14px "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif';
         ctx.fillStyle = isDarkMode ? '#eee' : '#333'; // ✅ Light text in dark mode
@@ -217,15 +216,16 @@
 
   // ✅ Load CSV and render chart
   async function fetchCSVData() {
-    const response = await fetch('Data/Public_Companies.csv');
+    const response = await fetch('Data/USA_MarketCap_LargestShare.csv');
     const text = await response.text();
     const rows = text.trim().split('\n').slice(1); // Skip header
 
     const data = rows.map(row => {
-      const [label, value] = row.split(',');
+      const [label, value, company] = row.split(',');
       return {
         x: new Date(label),
-        y: parseFloat(value)
+        y: parseFloat(value),
+        z: company
       };
     });
 
@@ -342,7 +342,7 @@ function renderChart(data) {
 <script>
   document.getElementById('downloadCSV').addEventListener('click', async () => {
     try {
-      const response = await fetch('Data/Public_Companies.csv');
+      const response = await fetch('Data/USA_MarketCap_LargestShare.csv');
       if (!response.ok) throw new Error('File not found');
       const csv = await response.text();
 
@@ -351,7 +351,7 @@ function renderChart(data) {
 
       const link = document.createElement('a');
       link.href = url;
-      link.download = 'Public_Companies.csv';
+      link.download = 'USA_MarketCap_LargestShare.csv';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
