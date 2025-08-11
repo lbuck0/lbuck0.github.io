@@ -555,6 +555,14 @@ header {
     color: #d7d7d7;
     text-decoration: none;
   } 
+
+  p a {
+    color: #0077cc;
+  }
+
+  p a:visited {
+    color: inherit; /* or use the same color as unvisited */
+  }
 }
 
 
@@ -574,6 +582,5 @@ header {
 
     #menu-toggle {
     display: block;
-  }
-
+    }
 }

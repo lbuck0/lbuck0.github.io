@@ -26,7 +26,7 @@
     "title": "Historical Volume of Public Companies",
     "summary": "History of listings on NYSE, AMEX & NASDAQ exchanges",
     "image": "Articles/Images/WallStreet.webp",
-    "date": "2025-08-6",
+    "date": "2025-08-06",
     "tags": [
       "Coding",
       "Stock Market"
@@ -43,5 +43,16 @@
       "Stock Market"
     ],
     "link": "Articles/USAMarketCap.html"
+  },
+  {
+    "title": "U.S. Market | Value v. Equal Weight Returns",
+    "summary": "Index returns for all U.S. stocks - equal and value weight",
+    "image": "Articles/Images/Bull.webp",
+    "date": "2025-08-13",
+    "tags": [
+      "Coding",
+      "Stock Market"
+    ],
+    "link": "Articles/Weighted.html"
   }
 ]
