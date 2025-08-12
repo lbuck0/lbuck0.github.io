@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="title" content="U.S. v. Foreign HQ'd Company Returns"/>
+    <meta name="date" content="2025-08-17" />
+    <meta name="tags" content="Coding, Stock Market" />
+    <meta name="thumbnail" content="Articles/Images/World.webp"/>
+    <meta name="summary" content="Returns for all U.S. and foreign headquarterd stocks"/>
+    <title>Luke Buck | U.S. v. Foreign Headquartered Company Returns</title>
+    <link rel="stylesheet" href="Article_Template.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+  <div class="header-container">
+      <h2 class="site-name">
+        <a href="../index.html">Luke Buck</a>
+      </h2>
+      <nav class="desktop-nav">
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#education">Education</a>
+        <a href="../index.html#articles">Projects</a>
+        <a href="../index.html#experience">Experience</a>
+        <a href="../index.html#music">Music</a>
+        <a href="../index.html#certs">Certifications</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+      <button id="menu-toggle">☰</button>
+    </div>
+    <nav id="mobile-menu">
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#education">Education</a>
+      <a href="../index.html#articles">Projects</a>
+      <a href="../index.html#experience">Experience</a>
+      <a href="../index.html#music">Music</a>
+      <a href="../index.html#certs">Certifications</a>
+      <a href="../index.html#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- 📝 TITLE + SUMMARY -->
+  <main class="article-main">
+    <div class="back-wrapper">
+      <a href="../projects.html" class="back-link">← Projects & Research</a>
+    </div>
+    <h1 class="article-title">U.S. v. Foreign Headquartered Company Returns</h1>
+    <img src="Images/World.webp" alt="Main visual" class="main-article-image" />
+    <p class="article-summary">Index returns for all U.S. stocks - equal and value weight</p>
+      <p class="article-date">Published: August 13, 2025</p>
+    <p class="article-date">Tags: Coding, Stock Market</p>
+    <p class="article-author">By Luke Buck</p>
+
+    <!-- 🧾 ARTICLE CONTENT -->
+    <article class="article-body">
+
+      <p>Of companies listed on U.S. stock exchanges, American companies have significantly outperformed foreign companies historically. A $1 dollar investment into all American and foreign operated companies listed on American exchanges is shown below. </p>
+
+      <h2 class="section-heading">Equal-Weighted Indexes</h2>
+      <div class="download-wrapper">
+        <button id="downloadCSV" class="back-button">Download CSV</button>
+      </div>
+
+      <canvas id="Chart1" width="600" height="400" min-height="300"></canvas>
+      
+      <h2 class="section-heading">Value-Weighted Indexes</h2>
+      <div class="download-wrapper">
+        <button id="downloadCSV2" class="back-button">Download CSV</button>
+      </div>
+
+      <canvas id="Chart2" width="600" height="400" min-height="300"></canvas>
+
+      <p>Scanning the data, American headquartered companies have performed much better than their foreign competitors. As we've seen before, <a href="Weighted.html" target="_blank" rel="noopener"> equal-weighted indexes provided better returns than value-weighted indexes.</a> Additionally, foreign headquartered stocks have been and continue to be less volatile than American stocks.</p>
+
+      <p>I gathered this data from CRSP's (Center for Research in Security Prices) monthly stock file and used Python to sort the data accordingly. Hope you enjoy!</p>
+    </article>
+  </main>
+
+  <footer>
+  <p id="updated-footer">Last updated: <span id="updated-date"></span></p>
+  <p class="signature">Tell your dog I say hi!</p>
+  <p class="social-links">
+    <a href="https://linkedin.com/in/luke-a-buck" target="_blank">
+      <img src="../Images/linkedin.png" alt="LinkedIn" class="social-icon">
+    </a>
+  </p>
+</footer>
+
+</body>
+
+<script>
+  // Last updated script
+  document.getElementById("updated-date").textContent =
+    new Date(document.lastModified).toLocaleDateString();
+</script>
+
+<script>
+    // ========== MOBILE MENU ==========
+    const menuToggle = document.getElementById("menu-toggle");
+    const mobileMenu = document.getElementById("mobile-menu");
+    menuToggle.addEventListener("click", () => {
+        mobileMenu.classList.toggle("show");
+    });
+
+</script>
+
+<script>
+  window.addEventListener("scroll", () => {
+    const header = document.querySelector("header");
+    const maxScroll = document.body.scrollHeight - window.innerHeight;
+    const scrollRatio = Math.min(1, window.scrollY / maxScroll);
+    const fill = Math.floor(scrollRatio * 100);
+
+    header.style.borderImage = `linear-gradient(to right, #3a6ea5 ${fill}%, transparent ${fill}%) 1`;
+  });
+
+      document.querySelectorAll("#mobile-menu a").forEach(link => {
+      link.addEventListener("click", () => {
+        document.getElementById("mobile-menu").classList.remove("show");
+      });
+    });
+
+    window.addEventListener("resize", () => {
+      const mobileMenu = document.getElementById("mobile-menu");
+      const breakpoint = 750; // 👈 change this if needed
+
+      if (window.innerWidth > breakpoint && mobileMenu.classList.contains("show")) {
+        mobileMenu.classList.remove("show");
+      }
+    });
+</script>
+<script>
+    window.addEventListener("resize", () => {
+      const mobileMenu = document.getElementById("mobile-menu");
+      const breakpoint = 750; // 👈 change this if needed
+
+      if (window.innerWidth > breakpoint && mobileMenu.classList.contains("show")) {
+        mobileMenu.classList.remove("show");
+      }
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+
+<script>
+  // ✅ Smart formatter for large numbers
+function formatLargeNumber(value, decimals = 1) {
+  const absValue = Math.abs(value);
+  let scaled, suffix;
+
+  if (absValue >= 1_000_000_000_000) {
+    scaled = value / 1_000_000_000_000;
+    suffix = 'T';
+  } else if (absValue >= 1_000_000_000) {
+    scaled = value / 1_000_000_000;
+    suffix = 'B';
+  } else if (absValue >= 1_000_000) {
+    scaled = value / 1_000_000;
+    suffix = 'M';
+  } else if (absValue >= 1_000) {
+    scaled = value / 1_000;
+    suffix = 'K';
+  } else {
+    scaled = value;
+    suffix = '';
+  }
+
+  return scaled.toFixed(decimals) + suffix;
+}
+
+  // ✅ Custom plugin to draw vertical line + ball + label
+const verticalLinePlugin = {
+  id: 'verticalLine',
+  afterDatasetsDraw(chart) {
+    const activeEls = chart.tooltip?.getActiveElements?.();
+    if (!activeEls || activeEls.length === 0) return;
+
+    const ctx = chart.ctx;
+    const { top, bottom, left, right } = chart.chartArea;
+
+    const { element: firstPoint } = activeEls[0];
+    const x = firstPoint.x;
+
+    // 1. Draw vertical line
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(x, top - 10);
+    ctx.lineTo(x, bottom);
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = '#aaa';
+    ctx.stroke();
+    ctx.restore();
+
+    // 2. Draw balls on each dataset
+    activeEls.forEach(({ element, datasetIndex }) => {
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(element.x, element.y, 7, 0, 2 * Math.PI);
+      ctx.fillStyle = chart.data.datasets[datasetIndex].borderColor;
+      ctx.fill();
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = '#fff';
+      ctx.stroke();
+      ctx.restore();
+    });
+
+    // 3. Draw stacked labels with color swatches
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    ctx.font = '14px "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif';
+    ctx.textBaseline = 'bottom';
+
+    let labelY = top - 12;
+
+const swatchSize = 10;
+const swatchMargin = 6;
+
+// Measure all label widths
+const labels = activeEls.map(({ element, datasetIndex }) => {
+  const raw = element.$context.raw;
+  const dataset = chart.data.datasets[datasetIndex];
+  const formattedValue = formatLargeNumber(raw.y, 1);
+  return `${dataset.label}: ${formattedValue}`;
+});
+
+const widestLabelWidth = Math.max(...labels.map(text => ctx.measureText(text).width));
+const blockWidth = swatchSize + swatchMargin + widestLabelWidth;
+
+// Center the block horizontally above the vertical line
+const blockLeft = Math.max(left + 4, Math.min(x - blockWidth / 2, right - blockWidth - 4));
+
+activeEls
+  .slice()
+  .sort((a, b) => {
+    const labelA = chart.data.datasets[a.datasetIndex].label;
+    const labelB = chart.data.datasets[b.datasetIndex].label;
+    if (labelA === 'FRN') return -1;
+    if (labelB === 'USA') return 1;
+    return 0;
+  })
+  .forEach(({ element, datasetIndex }) => {
+    const raw = element.$context.raw;
+    const dataset = chart.data.datasets[datasetIndex];
+    const formattedValue = formatLargeNumber(raw.y, 1);
+    const labelText = `${dataset.label}: ${formattedValue}`;
+
+    const swatchX = blockLeft;
+    const labelX = blockLeft + swatchSize + swatchMargin;
+    const swatchY = labelY - 10;
+
+    // draw swatch
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(swatchX, swatchY, swatchSize / 2, 0, 2 * Math.PI);
+    ctx.fillStyle = dataset.borderColor;
+    ctx.fill();
+    ctx.restore();
+
+    // draw label
+    ctx.textAlign = 'left';
+    ctx.fillStyle = isDarkMode ? '#eee' : '#333';
+    ctx.fillText(labelText, labelX, labelY);
+
+    labelY -= 18;
+  });
+
+  }
+};
+
+  // ✅ Load CSV and render chart
+  async function fetchCSVData(filepath, chartName) {
+    const response = await fetch(filepath);
+    const text = await response.text();
+
+    // skip header row, then split
+    const rows = text.trim().split('\n').slice(1);
+
+    const dataPublic  = [];
+    const dataPrivate = [];
+
+    rows.forEach(row => {
+      // [date, col2, col3]
+      const [label, rawPub, rawPriv] = row.split(',');
+      const date      = new Date(label);
+      const pubValue  = parseFloat(rawPub);
+      const privValue = parseFloat(rawPriv);
+
+      dataPublic.push({ x: date, y: pubValue });
+      dataPrivate.push({ x: date, y: privValue });
+    });
+
+    renderChart(dataPublic, dataPrivate, chartName);
+  }
+
+function renderChart(dataPublic, dataPrivate, chartName) {
+  const ctx = document.getElementById(chartName).getContext('2d');
+  try {
+    const existingChart = Chart.getChart(chartName);
+    existingChart.destroy();
+  } catch (err) {
+  
+  }   
+
+
+  const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const gridColor = isDarkMode ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.05)';
+  const tickColor = isDarkMode ? '#eee' : '#333';
+
+  // gradient for public
+  const gradPub = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
+  gradPub.addColorStop(0, 'rgba(58,110,165,0.7)');
+  gradPub.addColorStop(1, 'rgba(58,110,165,0.1)');
+
+  // gradient for private
+  const gradPriv = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
+  gradPriv.addColorStop(0, 'rgba(200,50,100,0.7)');
+  gradPriv.addColorStop(1, 'rgba(200,50,100,0.1)');
+
+  chartInstance = new Chart(ctx, {
+    type: 'line',
+    data: {
+      datasets: [
+        {
+          label: 'USA',
+          data: dataPublic,
+          borderColor: '#3a6ea5',
+          backgroundColor: gradPub,
+          fill: true,
+          tension: 0.4,
+          pointRadius: 0,
+          pointHoverRadius: 0
+        },
+        {
+          label: 'FRN',
+          data: dataPrivate,
+          borderColor: '#c83264',
+          backgroundColor: gradPriv,
+          fill: true,
+          tension: 0.4,
+          pointRadius: 0,
+          pointHoverRadius: 0
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      interaction: {
+        mode: 'index',
+        intersect: false
+      },
+      layout: {
+        padding: { top: 60, right: 8 }
+      },
+      plugins: {
+        tooltip: { enabled: false },
+        legend:  { display: false }
+      },
+      scales: {
+        x: {
+          type: 'time',
+          min: '1970-01-01',
+          bounds: 'ticks',
+          time: {
+            unit: 'year',
+            displayFormats: { month: 'yyyy' }
+          },
+          ticks: {
+            font: { size: 14, family: 'Segoe UI, system-ui, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif' },
+            color: tickColor,
+            minTicksLimit: 3,
+            maxTicksLimit: 6
+          },
+          grid: { display: false, color: gridColor }
+        },
+        y: {
+          beginAtZero: false,
+          ticks: {
+            callback: val => formatLargeNumber(val, 0),
+            font: { size: 14, family: 'Segoe UI, system-ui, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif' },
+            color: tickColor,
+            minTicksLimit: 3,
+            maxTicksLimit: 5
+          },
+          grid: { display: true, color: gridColor }
+        }
+      }
+    },
+    plugins: [verticalLinePlugin]
+  });
+}
+
+  // ✅ Kick off the chart rendering
+  fetchCSVData('Data/USA_FRN_Equal.csv', 'Chart1');
+  fetchCSVData('Data/USA_FRN_Weighted.csv', 'Chart2')
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+    fetchCSVData('Data/USA_FRN_Equal.csv', 'Chart1');
+    fetchCSVData('Data/USA_FRN_Weighted.csv', 'Chart2');
+  });
+</script>
+
+<script>
+  document.getElementById('downloadCSV').addEventListener('click', async () => {
+    try {
+      const response = await fetch('Data/USA_FRN_Equal.csv');
+      if (!response.ok) throw new Error('File not found');
+      const csv = await response.text();
+
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'USA_FRN_Equal.csv';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error('Download failed:', err);
+      alert('Sorry, the CSV file could not be downloaded.');
+    }
+  });
+</script>
+
+<script>
+  document.getElementById('downloadCSV2').addEventListener('click', async () => {
+    try {
+      const response = await fetch('Data/USA_FRN_Weighted.csv');
+      if (!response.ok) throw new Error('File not found');
+      const csv = await response.text();
+
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'USA_FRN_Weighted.csv';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error('Download failed:', err);
+      alert('Sorry, the CSV file could not be downloaded.');
+    }
+  });
+</script>
+
+</html>

@@ -34,6 +34,17 @@
     "link": "Articles/PublicCompanies.html"
   },
   {
+    "title": "U.S. v. Foreign HQ'd Company Returns",
+    "summary": "Returns for all U.S. and foreign headquarterd stocks",
+    "image": "Articles/Images/World.webp",
+    "date": "2025-08-17",
+    "tags": [
+      "Coding",
+      "Stock Market"
+    ],
+    "link": "Articles/USAForeign.html"
+  },
+  {
     "title": "Total U.S. Market Capitalization History",
     "summary": "Combined capitalization history of all public companies",
     "image": "Articles/Images/WallStreet2.webp",
