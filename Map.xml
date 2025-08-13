@@ -1,0 +1,39 @@
+
+<urlset xmlns="http://www.luke-buck.com/sitemap">
+
+   <url>
+      <loc>https://luke-buck.com/</loc>
+      <priority>1</priority>
+      <changefreq>weekly</changefreq>
+   </url>
+
+   <url>
+      <loc>https://luke-buck.com/projects.html</loc>
+      <changefreq>weekly</changefreq>
+   </url>
+
+   <url>
+      <loc>https://luke-buck.com/Articles/USAForeign.html</loc>
+   </url>
+
+   <url>
+      <loc>https://luke-buck.com/Articles/Weighted.html</loc>
+   </url>
+
+   <url>
+      <loc>https://luke-buck.com/Articles/LargestShare.html</loc>
+   </url>
+
+   <url>
+      <loc>https://luke-buck.com/Articles/USAMarketCap.html</loc>
+   </url>
+
+   <url>
+      <loc>https://luke-buck.com/Articles/PublicCompanies.html</loc>
+   </url>
+
+   <url>
+      <loc>https://luke-buck.com/Articles/BuildingWebsite.html</loc>
+   </url>
+
+</urlset>
