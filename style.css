@@ -928,6 +928,7 @@ footer p {
 
 /* Bullet column */
 .role-bullets {
+   align-self: center;
   grid-column: 3 / 4;
   list-style-type: disc;
   padding-left: 1rem;   /* indentation */
@@ -1113,6 +1114,7 @@ footer p {
   .role-bullets {
     padding-left: 1rem;
     width: 100%;
+    align-items: center;
   }
 
   .carousel-dots {
