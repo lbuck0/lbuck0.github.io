@@ -103,64 +103,122 @@
     <!-- Experience -->
     <section id="experience" class="education">
       <h2 class="blue-heading">Experience</h2>
-      <ul class="info-list">
-        <li class="info-card">
-          <div class="logo-box">
-            <img src="Images/KSB.png"
-                 alt="Kennebec Savings Bank Logo"
-                 class="info-logo"/>
-          </div>
-          <div>
-            <strong>Project Management, Vendor & Security Intern</strong><br/>
-            Kennebec Savings Bank | 2025
-          </div>
-        </li>
-        <li class="info-card">
-          <div class="logo-box">
-            <img src="Images/Maine_Crest.png"
-                 alt="UMaine Crest"
-                 class="info-logo"/>
-          </div>
-          <div>
-            <strong>Financial Markets Research Assistant</strong><br/>
-            University of ME | 2025
-          </div>
-        </li>
-        <li class="info-card">
-          <div class="logo-box">
-            <img src="Images/Sappi.webp"
-                 alt="Sappi Logo"
-                 class="info-logo"/>
-          </div>
-          <div>
-            <strong>Engineering Intern</strong><br/>
-            Sappi | 2024
+
+      <div class="carousel-container-vert" id="experience-carousel">
+      <ul class="info-list carousel-list">
+        <li class="info-card2 active">
+          <div class="info-wrapper">
+            <div class="info-header">
+              <div class="logo-box2">
+                <img src="Images/KSB.png" alt="Kennebec Savings Bank Logo" class="info-logo2" />
+              </div>
+              <div class="info-text">
+                <div class="job-title">Project, Vendor & Security Intern</div>
+                <div class="company-name">Kennebec Savings Bank</div>
+                <div class="work-date">2025</div>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <ul class="role-bullets">
+              <li></li>
+              <li></li>
+              <li></li>
+            </ul>
           </div>
         </li>
-        <li class="info-card">
-          <div class="logo-box">
-            <img src="Images/ECI.png"
-                 alt="Electrical Consultant Inc. Logo"
-                 class="info-logo"/>
-          </div>
-          <div>
-            <strong>Engineering Intern</strong><br/>
-            Electrical Consultant Inc. | 2023
+
+        <li class="info-card2">
+          <div class="info-wrapper">
+            <div class="info-header">
+              <div class="logo-box2">
+                <img src="Images/UMaine.png" alt="UMaine Crest" class="info-logo2" />
+              </div>
+              <div class="info-text">
+                <div class="job-title">Market Research Assistant</div>
+                <div class="company-name">University of ME</div>
+                <div class="work-date">2025</div>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <ul class="role-bullets">
+              <li></li>
+              <li></li>
+              <li></li>
+            </ul>
           </div>
         </li>
-        <li class="info-card">
-          <div class="logo-box">
-            <img src="Images/LP.png"
-                 alt="LaBelle Plumbing Lofo"
-                 class="info-logo"/>
+
+        <li class="info-card2">
+          <div class="info-wrapper">
+            <div class="info-header">
+              <div class="logo-box2">
+                <img src="Images/Sappi.webp" alt="Sappi Logo" class="info-logo2" />
+              </div>
+              <div class="info-text">
+                <div class="job-title">Engineering Intern</div>
+                <div class="company-name">Sappi</div>
+                <div class="work-date">2024</div>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <ul class="role-bullets">
+              <li></li>
+              <li></li>
+              <li></li>
+            </ul>
           </div>
-          <div>
-            <strong>Plumbing Apprentice</strong><br/>
-            LaBelle Plumbing | 2018-2022
+        </li>
+
+        <li class="info-card2">
+          <div class="info-wrapper">
+            <div class="info-header">
+              <div class="logo-box2">
+                <img src="Images/ECI.png" alt="Electrical Consultant Inc. Logo" class="info-logo2" />
+              </div>
+              <div class="info-text">
+                <div class="job-title">Engineering Intern</div>
+                <div class="company-name">Electrical Consultant Inc.</div>
+                <div class="work-date">2023</div>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <ul class="role-bullets">
+              <li></li>
+              <li></li>
+              <li></li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="info-card2">
+          <div class="info-wrapper">
+            <div class="info-header">
+              <div class="logo-box2">
+                <img src="Images/LP.png" alt="LaBelle Plumbing Logo" class="info-logo2" />
+              </div>
+              <div class="info-text">
+                <div class="job-title">Plumbing Apprentice</div>
+                <div class="company-name">LaBelle Plumbing</div>
+                <div class="work-date">2018–2022</div>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <ul class="role-bullets">
+              <li></li>
+              <li></li>
+              <li></li>
+            </ul>
           </div>
         </li>
       </ul>
+
+
+
+        <!-- Pagination dots inside carousel, aligned right -->
+        <div class="carousel-dots" id="carousel-dots"></div>
+      </div>
     </section>
+
 
     <!-- MUSIC -->
     <section id="music" class="music-section">
@@ -474,5 +532,89 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 </script>
+
+<script>
+  const list = document.querySelector('.carousel-list');
+  const items = document.querySelectorAll('.info-card2');
+  const container = document.getElementById('experience-carousel');
+  const dotsContainer = document.getElementById('carousel-dots');
+
+  let currentIndex = 0;
+  let autoplayInterval;
+
+  // Create dots
+  items.forEach((_, index) => {
+    const dot = document.createElement('button');
+    dot.addEventListener('click', () => {
+      currentIndex = index;
+      updateCarousel();
+      resetAutoplay();
+    });
+    dotsContainer.appendChild(dot);
+  });
+
+  const dots = dotsContainer.querySelectorAll('button');
+
+  function updateCarousel() {
+    const targetOffset = items[currentIndex].offsetTop;
+    list.style.transform = `translateY(-${targetOffset}px)`;
+
+    items.forEach((item, index) => {
+      item.classList.toggle('active', index === currentIndex);
+    });
+
+    dots.forEach((dot, index) => {
+      dot.classList.toggle('active', index === currentIndex);
+    });
+  }
+
+  function nextItem() {
+    currentIndex = (currentIndex + 1) % items.length;
+    updateCarousel();
+  }
+
+  function resetAutoplay() {
+    clearInterval(autoplayInterval);
+    autoplayInterval = setInterval(nextItem, 4000);
+  }
+
+  // Swipe Support
+  let startY = null;
+
+  container.addEventListener('touchstart', (e) => {
+    startY = e.touches[0].clientY;
+  });
+
+  container.addEventListener('touchend', (e) => {
+    if (startY === null) return;
+    const endY = e.changedTouches[0].clientY;
+    const deltaY = startY - endY;
+
+    if (Math.abs(deltaY) > 50) {
+      if (deltaY > 0) nextItem(); // swipe up
+      else {
+        currentIndex = (currentIndex - 1 + items.length) % items.length;
+        updateCarousel();
+      }
+      resetAutoplay();
+    }
+
+    startY = null;
+  });
+
+  // Pause on hover
+  container.addEventListener('mouseenter', () => clearInterval(autoplayInterval));
+  container.addEventListener('mouseleave', resetAutoplay);
+
+  // Recalculate offset on resize
+  window.addEventListener('resize', updateCarousel);
+
+  // Wait for full content (images/fonts) before measuring
+  window.addEventListener('load', () => {
+    updateCarousel();
+    resetAutoplay();
+  });
+</script>
+
 </body>
 </html>

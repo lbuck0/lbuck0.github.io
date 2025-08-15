@@ -821,6 +821,174 @@ footer p {
   min-width: 0;
 }
 
+.carousel-container-vert {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  margin: 0 0;
+  overflow: hidden;
+  touch-action: pan-y;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-between;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.carousel-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  transition: transform 0.8s ease-in-out;
+  flex: 1;
+  height: 100%;
+}
+
+.info-card2 {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 200px;
+  padding: 1rem;
+  box-sizing: border-box;
+  width: 100%;
+  opacity: 0.3;
+  transition: opacity 0.5s ease;
+}
+
+.info-card2.active {
+  opacity: 1;
+}
+
+.logo-box img {
+  max-height: 60px;
+  width: auto;
+}
+
+.carousel-dots {
+  position: absolute;
+  top: 50%;
+  right: 10px; /* Close to edge */
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 10; /* Ensure it stays above card content */
+}
+
+.carousel-dots button {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: background 0.3s;
+  box-sizing: content-box; /* Ensures padding doesn't affect size */
+}
+
+
+.carousel-dots button.active {
+  background: #3a6ea5;
+}
+
+.carousel-container-vert:hover .carousel-list {
+  animation-play-state: paused;
+}
+
+/* Laptop / desktop layout -------------------------------------------*/
+.info-wrapper {
+  display: grid;
+  grid-template-columns: 300px 1px 1fr; /* header | divider | bullets */
+  column-gap: 16px;
+  height: 100%;
+  width: 100%;
+}
+
+/* Header (logo above text) */
+.info-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+/* Divider column (middle) */
+.divider {
+  background: #ccc;
+  width: 1px;
+  height: 100%;
+  grid-column: 2 / 3;
+  grid-row: 1 / -1;
+}
+
+/* Bullet column */
+.role-bullets {
+  grid-column: 3 / 4;
+  list-style-type: disc;
+  padding-left: 1rem;   /* indentation */
+  margin: 0;
+  border: none;
+  background: none;
+}
+
+/* Reset individual bullet rows  */
+.role-bullets li {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0 0 6px 0;
+  box-shadow: none;
+}
+
+/* Keep content from overflowing outside the 200px-tall card */
+.info-card2 {
+  overflow: hidden;
+}
+
+/* logo above, 70px height */
+.info-logo2 {
+  max-height: 70px;
+  width: auto;
+}
+
+/* text container next to the logo */
+.info-text {
+  margin-top:auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* position title */
+.job-title {
+  font-weight: 700;
+  font-size: 1.1rem;      /* slightly larger */
+}
+
+/* company (normal weight) */
+.company-name {
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+/* date */
+.work-date {
+  font-size: 0.9rem;
+  color: #888;            /* light gray */
+}
+
+.logo-box2 {
+  flex: 1;
+  display: flex;
+  align-items: center; /* top of the card */
+  justify-content: center;
+}
+
+
 /* ==========================================================================
    RESPONSIVE BEHAVIOR
    ========================================================================== */
@@ -896,6 +1064,68 @@ footer p {
     padding: 3em 1em;
   }
 
+  .carousel-container-vert {
+    position: relative;
+    width: 100%;
+    height: 400px;
+  }
+
+.info-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+/* Header (logo above text) */
+.info-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+  .info-card2 {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    height: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
+    width: 100%;
+    opacity: 0.3;
+    transition: opacity 0.5s ease;
+  }
+
+  /* Horizontal divider between header and bullets */
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: #ccc;
+    margin: 12px 0;
+  }
+
+  .logo-box2 {
+    justify-content: flex-start;
+  }
+
+  /* Bullet list below the divider */
+  .role-bullets {
+    padding-left: 1rem;
+    width: 100%;
+  }
+
+  .carousel-dots {
+  position: absolute;
+  top: 60px;
+  right: 10px; /* Close to edge */
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 10; /* Ensure it stays above card content */
+}
+
 }
 /* ─────────────────────────────────────────────
    Footer: Dark Mode Support
@@ -914,7 +1144,36 @@ footer p {
   .social-icon:hover {
     filter: brightness(1.2);
   }
-}
+  .carousel-container-vert {
+    background: #1e1e1e;
+    border-color: #2a2a2a;
+  }
+
+  /* Text */
+  .info-card2,
+  .role-bullets li,
+  .job-title,
+  .company-name {
+    color: #ffffff;            /* <-- bright white text */
+  }
+
+  /* Date (slightly muted so it's still secondary) */
+  .work-date {
+    color: #d0d0d0;
+  }
+
+  /* Divider line */
+  .divider {
+    background: #444;
+  }
+
+  /* Navigation dots */
+  .carousel-dots button {
+    background: rgba(255,255,255,0.25);
+  }
+  .carousel-dots button.active {
+    background: #ffffff;
+  }
 
 /* ─────────────────────────────────────────────────────────────────────────
    Dark Mode Tweaks for Back-Button & Filters
@@ -1083,5 +1342,5 @@ footer p {
     color: #eee;
   }
 
-
+}
 }
