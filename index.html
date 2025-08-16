@@ -576,31 +576,45 @@ document.addEventListener("DOMContentLoaded", () => {
     autoplayInterval = setInterval(nextItem, 4000);
   }
 
-  // Swipe Support
+  // Swipe Support + pause + prevent page scroll
   let startY = null;
 
   container.addEventListener('touchstart', (e) => {
     startY = e.touches[0].clientY;
+
+    // pause autoplay when user holds the carousel
+    clearInterval(autoplayInterval);
+
+    // prevent page scroll
+    e.preventDefault();
+  });
+
+  container.addEventListener('touchmove', (e) => {
+    // prevent page scroll while dragging
+    e.preventDefault();
   });
 
   container.addEventListener('touchend', (e) => {
     if (startY === null) return;
+
     const endY = e.changedTouches[0].clientY;
     const deltaY = startY - endY;
 
     if (Math.abs(deltaY) > 50) {
-      if (deltaY > 0) nextItem(); // swipe up
-      else {
+      if (deltaY > 0) {
+        nextItem();       // swipe up
+      } else {
         currentIndex = (currentIndex - 1 + items.length) % items.length;
         updateCarousel();
       }
-      resetAutoplay();
     }
 
+    // resume autoplay
+    resetAutoplay();
     startY = null;
   });
 
-  // Pause on hover
+  // Pause on hover (desktop)
   container.addEventListener('mouseenter', () => clearInterval(autoplayInterval));
   container.addEventListener('mouseleave', resetAutoplay);
 
@@ -613,6 +627,5 @@ document.addEventListener("DOMContentLoaded", () => {
     resetAutoplay();
   });
 </script>
-
 </body>
 </html>
