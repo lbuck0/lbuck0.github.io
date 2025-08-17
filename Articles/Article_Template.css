@@ -416,6 +416,30 @@ header {
   margin: 0;
 }
 
+.slider-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 12px;
+}
+
+.slider-label {
+  min-width: 80px;     /* space for the text label */
+}
+
+.value-box, .value-box-freq {
+  width: 60px;
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #f8f8f8;
+  position: relative;       /* <— REQUIRED for the ::after to work */
+}
+
+.value-slider, .value-slider-freq {
+  width: 25vw;         /* = 25% of viewport width  */
+  max-width: 300px;    /* optional cap so it doesn’t get too long on large screens */
+}
 
 @media (prefers-color-scheme: dark) {
   body {

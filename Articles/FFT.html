@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="title" content="Total U.S. Market Capitalization History"/>
+    <meta name="date" content="2025-08-10" />
+    <meta name="tags" content="Coding, Stock Market" />
+    <meta name="thumbnail" content="Articles/Images/WallStreet2.webp"/>
+    <meta name="summary" content="Combined capitalization history of all public companies"/>
+    <title>Luke Buck | Total Market Capitalization History</title>
+    <link rel="stylesheet" href="Article_Template.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+  <div class="header-container">
+      <h2 class="site-name">
+        <a href="../index.html">Luke Buck</a>
+      </h2>
+      <nav class="desktop-nav">
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#education">Education</a>
+        <a href="../index.html#articles">Projects</a>
+        <a href="../index.html#experience">Experience</a>
+        <a href="../index.html#music">Music</a>
+        <a href="../index.html#certs">Certifications</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+      <button id="menu-toggle">☰</button>
+    </div>
+    <nav id="mobile-menu">
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#education">Education</a>
+      <a href="../index.html#articles">Projects</a>
+      <a href="../index.html#experience">Experience</a>
+      <a href="../index.html#music">Music</a>
+      <a href="../index.html#certs">Certifications</a>
+      <a href="../index.html#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- 📝 TITLE + SUMMARY -->
+  <main class="article-main">
+    <div class="back-wrapper">
+      <a href="../projects.html" class="back-link">← Projects & Research</a>
+    </div>
+    <h1 class="article-title">Total U.S. Market Capitalization History</h1>
+    <img src="Images/WallStreet2.webp" alt="Main visual" class="main-article-image-bottom" />
+    <p class="article-summary">Combined capitalization history of all public companies</p>
+      <p class="article-date">Published: August 10, 2025</p>
+    <p class="article-date">Tags: Coding, Stock Market</p>
+    <p class="article-author">By Luke Buck</p>
+
+    <!-- 🧾 ARTICLE CONTENT -->
+    <article class="article-body">
+      
+      <h2 class="section-heading">Frequency 1</h2>
+      <div class="slider-row">
+        <label class="slider-label">Frequency:</label>
+        <input type="text" id="value1" value="1" class="value-box-freq" readonly>
+        <input type="range" id="slider1" min="1" max="20" value="0" class="value-slider-freq">
+      </div>
+
+      <div class="slider-row">
+        <label class="slider-label">Amplitude:</label>
+        <input type="number" id="value1" value="1" class="value-box" readonly>
+        <input type="range" id="slider2" min="1" max="10" value="1" class="value-slider">
+      </div>
+      
+      <h2 class="section-heading">Frequency 2</h2>
+      <div class="slider-row">
+        <label class="slider-label">Frequency:</label>
+        <input type="text" id="value1" value="1" class="value-box-freq" readonly>
+        <input type="range" id="slider3" min="1" max="20" value="1" class="value-slider-freq">
+      </div>
+
+      <div class="slider-row">
+        <label class="slider-label">Amplitude:</label>
+        <input type="number" id="value1" value="1" class="value-box" readonly>
+        <input type="range" id="slider4" min="1" max="10" value="1" class="value-slider">
+      </div>
+      
+      <h2 class="section-heading">Frequency 3</h2>
+      <div class="slider-row">
+        <label class="slider-label">Frequency:</label>
+        <input type="text" id="value1" value="1" class="value-box-freq" readonly>
+        <input type="range" id="slider5" min="1" max="20" value="0" class="value-slider-freq">
+      </div>
+
+      <div class="slider-row">
+        <label class="slider-label">Amplitude:</label>
+        <input type="number" id="value1" value="1" class="value-box" readonly>
+        <input type="range" id="slider6" min="1" max="10" value="1" class="value-slider">
+      </div>
+      
+      <h2 class="section-heading">Noise Level:</h2>
+      <div class="slider-row">
+        <label class="slider-label">Noise Level:</label>
+        <input type="number" id="value1" value="0" class="value-box" readonly>
+        <input type="range" id="slider7" min="0" max="10" value="0" class="value-slider">
+      </div>
+
+      <button id="randomizeBtn" class="back-button">Randomize Values</button>
+
+      <!-- <canvas id="myChart" width="600" height="400" min-height="300"></canvas> -->
+
+      <div id="myPlot" style="width:100%;height:400px;"></div>
+
+    </article>
+  </main>
+
+  <footer>
+  <p id="updated-footer">Last updated: <span id="updated-date"></span></p>
+  <p class="signature">Tell your dog I say hi!</p>
+  <p class="social-links">
+    <a href="https://linkedin.com/in/luke-a-buck" target="_blank">
+      <img src="../Images/linkedin.png" alt="LinkedIn" class="social-icon">
+    </a>
+  </p>
+</footer>
+
+</body>
+
+<script>
+  // Last updated script
+  document.getElementById("updated-date").textContent =
+    new Date(document.lastModified).toLocaleDateString();
+</script>
+
+<script>
+    // ========== MOBILE MENU ==========
+    const menuToggle = document.getElementById("menu-toggle");
+    const mobileMenu = document.getElementById("mobile-menu");
+    menuToggle.addEventListener("click", () => {
+        mobileMenu.classList.toggle("show");
+    });
+
+</script>
+
+<script>
+  window.addEventListener("scroll", () => {
+    const header = document.querySelector("header");
+    const maxScroll = document.body.scrollHeight - window.innerHeight;
+    const scrollRatio = Math.min(1, window.scrollY / maxScroll);
+    const fill = Math.floor(scrollRatio * 100);
+
+    header.style.borderImage = `linear-gradient(to right, #3a6ea5 ${fill}%, transparent ${fill}%) 1`;
+  });
+
+      document.querySelectorAll("#mobile-menu a").forEach(link => {
+      link.addEventListener("click", () => {
+        document.getElementById("mobile-menu").classList.remove("show");
+      });
+    });
+
+    window.addEventListener("resize", () => {
+      const mobileMenu = document.getElementById("mobile-menu");
+      const breakpoint = 750; // 👈 change this if needed
+
+      if (window.innerWidth > breakpoint && mobileMenu.classList.contains("show")) {
+        mobileMenu.classList.remove("show");
+      }
+    });
+</script>
+<script>
+    window.addEventListener("resize", () => {
+      const mobileMenu = document.getElementById("mobile-menu");
+      const breakpoint = 750; // 👈 change this if needed
+
+      if (window.innerWidth > breakpoint && mobileMenu.classList.contains("show")) {
+        mobileMenu.classList.remove("show");
+      }
+    });
+</script>
+
+<script>
+function updatePlot() {
+  // read slider values
+  const f1 = parseFloat(document.getElementById('slider1').value);
+  const a1 = parseFloat(document.getElementById('slider2').value);
+  const f2 = parseFloat(document.getElementById('slider3').value);
+  const a2 = parseFloat(document.getElementById('slider4').value);
+  const f3 = parseFloat(document.getElementById('slider5').value);
+  const a3 = parseFloat(document.getElementById('slider6').value);
+  const nl = parseFloat(document.getElementById('slider7').value);
+
+  // generate signal
+  const maxf = Math.max(f1, f2, f3);
+  const minf = Math.min(f1, f2, f3);
+  const avg = (a1 + a2 + a3)/3;
+  const xValues = [];
+  const yValues = [];
+
+  const end  = 1/minf*2;
+  const step = end/1000;
+
+  for (let x = 0; x <= end; x += step) {
+    const y =
+      Math.sin(2 * Math.PI * f1 * x) * a1 +
+      Math.sin(2 * Math.PI * f2 * x) * a2 +
+      Math.sin(2 * Math.PI * f3 * x) * a3 +
+      Math.random() * (nl * avg/2);
+
+    yValues.push(y);
+    xValues.push(x);
+  }
+
+  Plotly.newPlot("myPlot",
+    [{
+      x: xValues,
+      y: yValues,
+      mode: "lines",
+      line: { color: "blue", width: 2 }
+    }],
+    {
+      font: { family: "Arial", size: 14, color: "#000" },
+      hovermode: false
+    },
+    { staticPlot: false }
+  );
+}
+
+// initial plot
+window.addEventListener('load', updatePlot);
+
+// live update on slider change
+document.querySelectorAll('.value-slider, .value-slider-freq').forEach(slider => {
+  slider.addEventListener('input', (e) => {
+    const row = e.target.closest('.slider-row');
+    const box = row.querySelector('input[type="number"], input[type="text"]');
+    box.value = e.target.value;
+    updatePlot();
+  });
+});
+
+// fire each once on page load
+document.querySelectorAll('.value-slider, .value-slider-freq').forEach(slider => {
+  slider.dispatchEvent(new Event('input'));
+  updatePlot();
+});
+</script>
+
+<script>
+document.getElementById('randomizeBtn').addEventListener('click', () => {
+  document.querySelectorAll('.value-slider, .value-slider-freq').forEach(slider => {
+    const min = parseFloat(slider.min);
+    const max = parseFloat(slider.max);
+    const randomValue = Math.floor(min + Math.random() * (max - min + 1));
+
+    slider.value = randomValue;
+
+    const row = slider.closest('.slider-row');
+    const box = row.querySelector('input[type="number"], input[type="text"]');
+
+    if (slider.classList.contains('value-slider-freq')) {
+      box.value = randomValue + " Hz";
+    } else {
+      box.value = randomValue;
+    }
+  });
+
+  updatePlot();
+});
+</script>
+</html>
