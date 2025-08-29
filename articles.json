@@ -12,6 +12,17 @@
     "link": "Articles/BuildingWebsite.html"
   },
   {
+    "title": "Fast Fourier Transform Demo",
+    "summary": "Better understand a Fourier Transform with this tool",
+    "image": "Articles/Images/FFT.png",
+    "date": "2025-08-28",
+    "tags": [
+      "Digital Signal Processing",
+      "Vibrations"
+    ],
+    "link": "Articles/FFT.html"
+  },
+  {
     "title": "Largest Companies as Share of Market Value",
     "summary": "Percent of market capitalization attributed to the largest company",
     "image": "Articles/Images/BigCompanies.svg",

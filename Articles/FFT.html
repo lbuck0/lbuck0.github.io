@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="title" content="Total U.S. Market Capitalization History"/>
-    <meta name="date" content="2025-08-10" />
-    <meta name="tags" content="Coding, Stock Market" />
-    <meta name="thumbnail" content="Articles/Images/WallStreet2.webp"/>
-    <meta name="summary" content="Combined capitalization history of all public companies"/>
-    <title>Luke Buck | Total Market Capitalization History</title>
+    <meta name="title" content="Fast Fourier Transform Demo"/>
+    <meta name="date" content="2025-08-28" />
+    <meta name="tags" content="Digital Signal Processing, Vibrations" />
+    <meta name="thumbnail" content="Articles/Images/FFT.png"/>
+    <meta name="summary" content="Better understand a Fourier Transform with this tool"/>
+    <title>Luke Buck | Fast Fourier Transform Demo</title>
     <link rel="stylesheet" href="Article_Template.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+   <link rel="icon" href="/Images/Logo.png" type="image/png" />
 </head>
 <body>
   <!-- HEADER -->
@@ -47,67 +48,87 @@
     <div class="back-wrapper">
       <a href="../projects.html" class="back-link">← Projects & Research</a>
     </div>
-    <h1 class="article-title">Total U.S. Market Capitalization History</h1>
-    <img src="Images/WallStreet2.webp" alt="Main visual" class="main-article-image-bottom" />
-    <p class="article-summary">Combined capitalization history of all public companies</p>
-      <p class="article-date">Published: August 10, 2025</p>
-    <p class="article-date">Tags: Coding, Stock Market</p>
+    <h1 class="article-title">Fast Fourier Transform Demo</h1>
+    <img src="Images/FFT.png" alt="Main visual" class="main-article-image" />
+    <p class="article-summary">Better understand a Fourier Transform with this tool</p>
+      <p class="article-date">Published: August 28, 2025</p>
+    <p class="article-date">Tags: Digital Signal Processing, Vibrations</p>
     <p class="article-author">By Luke Buck</p>
 
     <!-- 🧾 ARTICLE CONTENT -->
     <article class="article-body">
       
-      <h2 class="section-heading">Frequency 1</h2>
+    <h2 class="section-heading">Frequency 1</h2>
+    <div class="sliders-container">
       <div class="slider-row">
         <label class="slider-label">Frequency:</label>
         <input type="text" id="value1" value="1" class="value-box-freq" readonly>
-        <input type="range" id="slider1" min="1" max="20" value="0" class="value-slider-freq">
+        <input type="range" id="slider1" min="1" max="20" value="1" class="value-slider-freq">
       </div>
 
       <div class="slider-row">
         <label class="slider-label">Amplitude:</label>
-        <input type="number" id="value1" value="1" class="value-box" readonly>
+        <input type="number" id="value2" value="1" class="value-box" readonly>
         <input type="range" id="slider2" min="1" max="10" value="1" class="value-slider">
       </div>
-      
-      <h2 class="section-heading">Frequency 2</h2>
+    </div>
+
+    <h2 class="section-heading">Frequency 2</h2>
+    <div class="sliders-container">
       <div class="slider-row">
         <label class="slider-label">Frequency:</label>
-        <input type="text" id="value1" value="1" class="value-box-freq" readonly>
+        <input type="text" id="value3" value="1" class="value-box-freq" readonly>
         <input type="range" id="slider3" min="1" max="20" value="1" class="value-slider-freq">
       </div>
 
       <div class="slider-row">
         <label class="slider-label">Amplitude:</label>
-        <input type="number" id="value1" value="1" class="value-box" readonly>
+        <input type="number" id="value4" value="1" class="value-box" readonly>
         <input type="range" id="slider4" min="1" max="10" value="1" class="value-slider">
       </div>
-      
-      <h2 class="section-heading">Frequency 3</h2>
+    </div>
+
+    <h2 class="section-heading">Frequency 3</h2>
+    <div class="sliders-container">
       <div class="slider-row">
         <label class="slider-label">Frequency:</label>
-        <input type="text" id="value1" value="1" class="value-box-freq" readonly>
-        <input type="range" id="slider5" min="1" max="20" value="0" class="value-slider-freq">
+        <input type="text" id="value5" value="1" class="value-box-freq" readonly>
+        <input type="range" id="slider5" min="1" max="20" value="1" class="value-slider-freq">
       </div>
 
       <div class="slider-row">
         <label class="slider-label">Amplitude:</label>
-        <input type="number" id="value1" value="1" class="value-box" readonly>
+        <input type="number" id="value6" value="1" class="value-box" readonly>
         <input type="range" id="slider6" min="1" max="10" value="1" class="value-slider">
       </div>
-      
-      <h2 class="section-heading">Noise Level:</h2>
+    </div>
+
+    <h2 class="section-heading">Noise Level:</h2>
+    <div class="sliders-container" style="margin-bottom: 30px;">
       <div class="slider-row">
         <label class="slider-label">Noise Level:</label>
-        <input type="number" id="value1" value="0" class="value-box" readonly>
+        <input type="number" id="value7" value="0" class="value-box" readonly>
         <input type="range" id="slider7" min="0" max="10" value="0" class="value-slider">
       </div>
+    </div>
 
-      <button id="randomizeBtn" class="back-button">Randomize Values</button>
+    <div style="display: flex; justify-content: space-between; align-items: center; flex: auto; margin-bottom: 30px;">
+      <!-- Left-aligned button -->
+      <button id="randomizeBtn" class="back-button">
+        Randomize Values
+      </button>
+
+      <!-- Right-aligned toggle -->
+      <label class="toggle-container">
+        <input type="checkbox" id="fftToggle">
+        Show Aliased Frequencies
+      </label>
+    </div>
 
       <!-- <canvas id="myChart" width="600" height="400" min-height="300"></canvas> -->
 
       <div id="myPlot" style="width:100%;height:400px;"></div>
+      <div id="fftPlot" style="width:100%;height:400px;"></div>
 
     </article>
   </main>
@@ -177,73 +198,6 @@
 </script>
 
 <script>
-function updatePlot() {
-  // read slider values
-  const f1 = parseFloat(document.getElementById('slider1').value);
-  const a1 = parseFloat(document.getElementById('slider2').value);
-  const f2 = parseFloat(document.getElementById('slider3').value);
-  const a2 = parseFloat(document.getElementById('slider4').value);
-  const f3 = parseFloat(document.getElementById('slider5').value);
-  const a3 = parseFloat(document.getElementById('slider6').value);
-  const nl = parseFloat(document.getElementById('slider7').value);
-
-  // generate signal
-  const maxf = Math.max(f1, f2, f3);
-  const minf = Math.min(f1, f2, f3);
-  const avg = (a1 + a2 + a3)/3;
-  const xValues = [];
-  const yValues = [];
-
-  const end  = 1/minf*2;
-  const step = end/1000;
-
-  for (let x = 0; x <= end; x += step) {
-    const y =
-      Math.sin(2 * Math.PI * f1 * x) * a1 +
-      Math.sin(2 * Math.PI * f2 * x) * a2 +
-      Math.sin(2 * Math.PI * f3 * x) * a3 +
-      Math.random() * (nl * avg/2);
-
-    yValues.push(y);
-    xValues.push(x);
-  }
-
-  Plotly.newPlot("myPlot",
-    [{
-      x: xValues,
-      y: yValues,
-      mode: "lines",
-      line: { color: "blue", width: 2 }
-    }],
-    {
-      font: { family: "Arial", size: 14, color: "#000" },
-      hovermode: false
-    },
-    { staticPlot: false }
-  );
-}
-
-// initial plot
-window.addEventListener('load', updatePlot);
-
-// live update on slider change
-document.querySelectorAll('.value-slider, .value-slider-freq').forEach(slider => {
-  slider.addEventListener('input', (e) => {
-    const row = e.target.closest('.slider-row');
-    const box = row.querySelector('input[type="number"], input[type="text"]');
-    box.value = e.target.value;
-    updatePlot();
-  });
-});
-
-// fire each once on page load
-document.querySelectorAll('.value-slider, .value-slider-freq').forEach(slider => {
-  slider.dispatchEvent(new Event('input'));
-  updatePlot();
-});
-</script>
-
-<script>
 document.getElementById('randomizeBtn').addEventListener('click', () => {
   document.querySelectorAll('.value-slider, .value-slider-freq').forEach(slider => {
     const min = parseFloat(slider.min);
@@ -264,5 +218,215 @@ document.getElementById('randomizeBtn').addEventListener('click', () => {
 
   updatePlot();
 });
+</script>
+
+<script>
+function updatePlot() {
+  // get chart colorscheme
+  const isDarkMode = window.matchMedia &&
+                    window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  if (isDarkMode) {
+    console.log("Yes")
+    papercolor = "#121212"
+    plotcolor = "#121212"
+    gridcolor = "#4D4D4D"
+    fontcolor = "#FFFFFF"
+  } else {
+    console.log("Light mode detected");
+    papercolor = "none"
+    plotcolor = "none"
+    gridcolor = "#D8D8D8"
+    fontcolor = "#000"
+  }
+
+  // read slider values
+  const f1 = parseFloat(document.getElementById('slider1').value);
+  const a1 = parseFloat(document.getElementById('slider2').value);
+  const f2 = parseFloat(document.getElementById('slider3').value);
+  const a2 = parseFloat(document.getElementById('slider4').value);
+  const f3 = parseFloat(document.getElementById('slider5').value);
+  const a3 = parseFloat(document.getElementById('slider6').value);
+  const nl = parseFloat(document.getElementById('slider7').value);
+
+  // --- generate signal ---
+const N = 2048;        // must be a power of 2
+const end = 2;
+const step = end / N;
+const avg = (a1+a2+a3)/3;
+yValues = [];
+xValues = [];
+maxf = Math.max(f1,f2,f3);
+
+for (let i = 0; i < N; i++) {
+  const x = i * step;
+  const y =
+    Math.sin(2 * Math.PI * f1 * x) * a1 +
+    Math.sin(2 * Math.PI * f2 * x) * a2 +
+    Math.sin(2 * Math.PI * f3 * x) * a3 +
+    Math.random() * (nl * avg / 2);
+  yValues.push(y);
+  xValues.push(x);
+}
+
+  // --- plot time-domain ---
+  Plotly.newPlot("myPlot",
+    [{
+      x: xValues,
+      y: yValues,
+      mode: "lines",
+      line: { color: '#3a6ea5', width: 2 }
+    }],
+    {
+      title: "Time Domain Signal",
+      xaxis: { title: "Time (s)", linecolor: "#000", gridcolor: gridcolor},
+      font: { family: "Arial", size: 14, color: fontcolor},
+      yaxis: {gridcolor: gridcolor}, 
+      hovermode: false,
+      margin: { l: 30, r: 10, t: 50, b: 90 },
+      plot_bgcolor: plotcolor,
+      paper_bgcolor: papercolor
+    },
+    { staticPlot: false }
+  );
+
+  // Complex number helper
+  class Complex {
+    constructor(re, im) {
+      this.re = re;
+      this.im = im;
+    }
+    add(other) {
+      return new Complex(this.re + other.re, this.im + other.im);
+    }
+    sub(other) {
+      return new Complex(this.re - other.re, this.im - other.im);
+    }
+    mul(other) {
+      return new Complex(
+        this.re * other.re - this.im * other.im,
+        this.re * other.im + this.im * other.re
+      );
+    }
+    mag() {
+      return Math.sqrt(this.re * this.re + this.im * this.im);
+    }
+  }
+
+  // Recursive radix-2 Cooley-Tukey FFT
+  function fft(signal) {
+    const N = signal.length;
+    if (N <= 1) return [signal[0]];
+
+    if (N % 2 !== 0) {
+      throw new Error("FFT input length must be a power of 2");
+    }
+
+    const even = fft(signal.filter((_, i) => i % 2 === 0));
+    const odd  = fft(signal.filter((_, i) => i % 2 !== 0));
+
+    const results = new Array(N);
+    for (let k = 0; k < N / 2; k++) {
+      const twiddle = new Complex(
+        Math.cos((-2 * Math.PI * k) / N),
+        Math.sin((-2 * Math.PI * k) / N)
+      );
+      const t = twiddle.mul(odd[k]);
+      results[k] = even[k].add(t);
+      results[k + N / 2] = even[k].sub(t);
+    }
+    return results;
+  }
+
+  // Convert signal to complex array
+  const complexSignal = yValues.map(v => new Complex(v, 0));
+
+  // Compute FFT
+  const fftOut = fft(complexSignal);
+
+  // Magnitude spectrum
+  const fftResult = fftOut.map(c => c.mag() / N);
+
+  // Frequency axis
+  Fs = 1 / step;
+  const freqs = Array.from({ length: N }, (_, i) => i * Fs / N);
+
+  // --- plot FFT ---
+  let xRange;
+  const toggle = document.getElementById("fftToggle");
+  console.log(toggle.checked)
+  if (toggle.checked) {
+    // Show aliased frequencies (full Nyquist range)
+    xRange = [0, Fs];
+  } else {
+    // Show only 0–25 Hz
+    xRange = [0, maxf+5];
+  }
+
+  // --- plot FFT ---
+  Plotly.newPlot("fftPlot",
+    [{
+      x: freqs,
+      y: fftResult,
+      mode: "lines",
+      line: { color: '#c83264', width: 3 }
+    }],
+    {
+      title: "Frequency Domain (FFT)",
+      xaxis: { title: "Frequency (Hz)", range: xRange, gridcolor: gridcolor},
+      yaxis: {gridcolor: gridcolor}, 
+      font: { family: "Arial", size: 14, color: fontcolor },
+      hovermode: false,
+      margin: { l: 30, r: 10, t: 50, b: 50 },
+      plot_bgcolor: plotcolor,
+      paper_bgcolor: papercolor
+    },
+    { staticPlot: false }
+  );
+}
+
+// live update on slider change
+document.querySelectorAll('.value-slider').forEach(slider => {
+  slider.addEventListener('input', (e) => {
+    const row = e.target.closest('.slider-row');
+    const box = row.querySelector('input[type="number"], input[type="text"]');
+    box.value = e.target.value;
+    updatePlot();
+  });
+});
+
+document.querySelectorAll('.value-slider-freq').forEach(slider => {
+  slider.addEventListener('input', (e) => {
+    const row = e.target.closest('.slider-row');
+    const box = row.querySelector('input[type="number"], input[type="text"]');
+    box.value = e.target.value + " Hz";
+    updatePlot();
+  });
+});
+
+// fire each once on page load
+document.querySelectorAll('.value-slider, .value-slider-freq').forEach(slider => {
+  slider.dispatchEvent(new Event('input'));
+  updatePlot();
+});
+
+    // --- toggle x-axis range ---
+document.getElementById("fftToggle").addEventListener("change", (e) => {
+  updatePlot();
+});
+
+</script>
+
+<script>
+  // Listen for window resize
+  window.addEventListener('resize', () => {
+    updatePlot();
+  });
+
+  // Listen for system/browser color scheme changes
+  const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  darkModeMediaQuery.addEventListener('change', () => {
+    updatePlot();
+  });
 </script>
 </html>

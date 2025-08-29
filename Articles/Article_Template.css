@@ -416,29 +416,44 @@ header {
   margin: 0;
 }
 
+/* Container that holds ALL slider-rows */
+.sliders-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 16px;   /* space between grid items */
+  margin-bottom: 20px;
+}
+
+/* Each individual slider-row */
 .slider-row {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  margin-bottom: 12px;
+  background: none;       /* optional card-like background */
+  padding: 6px;            /* spacing inside each row */
+  border-radius: 6px;      /* rounded corners */
 }
 
+/* Label stays fixed width */
 .slider-label {
-  min-width: 80px;     /* space for the text label */
+  min-width: 80px;
 }
 
+/* Value boxes */
 .value-box, .value-box-freq {
   width: 60px;
   padding: 4px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  background: #f8f8f8;
-  position: relative;       /* <— REQUIRED for the ::after to work */
+  background: none;
+  position: relative;
+  text-align: center;
 }
 
+/* Sliders */
 .value-slider, .value-slider-freq {
-  width: 25vw;         /* = 25% of viewport width  */
-  max-width: 300px;    /* optional cap so it doesn’t get too long on large screens */
+  width: 100%;          /* fill available space inside row */
+  max-width: 300px;     /* prevent getting too long */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -587,8 +602,12 @@ header {
   p a:visited {
     color: inherit; /* or use the same color as unvisited */
   }
-}
 
+  /* Value boxes */
+  .value-box, .value-box-freq {
+    color:#aaa;
+  }
+}
 
 @media (max-width: 750px) {
   .desktop-nav {
