@@ -36,7 +36,7 @@
   {
     "title": "Historical Volume of Public Companies",
     "summary": "History of listings on NYSE, AMEX & NASDAQ exchanges",
-    "image": "Articles/Images/WallStreet.webp",
+    "image": "Articles/Images/WallStreet.jpg",
     "date": "2025-08-06",
     "tags": [
       "Coding",
@@ -45,9 +45,9 @@
     "link": "Articles/PublicCompanies.html"
   },
   {
-    "title": "U.S. v. Foreign HQ'd Company Returns",
-    "summary": "Returns for all U.S. and foreign headquarterd stocks",
-    "image": "Articles/Images/World.webp",
+    "title": "U.S. and Foreign Company Returns",
+    "summary": "Returns for all U.S. and foreign headquartered stocks",
+    "image": "Articles/Images/USA_FRN.png",
     "date": "2025-08-17",
     "tags": [
       "Coding",
@@ -67,8 +67,8 @@
     "link": "Articles/USAMarketCap.html"
   },
   {
-    "title": "U.S. Market | Value v. Equal Weight Returns",
-    "summary": "Index returns for all U.S. stocks - equal and value weight",
+    "title": "Equal and Value Weighted Index Returns",
+    "summary": "Equal and value weighted index returns for all U.S. stocks",
     "image": "Articles/Images/Bull.webp",
     "date": "2025-08-13",
     "tags": [
