@@ -12,9 +12,9 @@
     "link": "Articles/BuildingWebsite.html"
   },
   {
-    "title": "Fast Fourier Transform Demo",
+    "title": "Fast Fourier Transform Learning Demo",
     "summary": "Better understand a Fourier Transform with this tool",
-    "image": "Articles/Images/FFT.png",
+    "image": "Articles/Images/FFT.jpg",
     "date": "2025-08-28",
     "tags": [
       "Digital Signal Processing",
@@ -47,7 +47,7 @@
   {
     "title": "U.S. and Foreign Company Returns",
     "summary": "Returns for all U.S. and foreign headquartered stocks",
-    "image": "Articles/Images/USA_FRN.png",
+    "image": "Articles/Images/USA_FRN.jpg",
     "date": "2025-08-17",
     "tags": [
       "Coding",
