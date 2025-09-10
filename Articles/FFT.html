@@ -57,6 +57,13 @@
 
     <!-- 🧾 ARTICLE CONTENT -->
     <article class="article-body">
+
+    <p>Alright, confession time. I never really understood the Fourier Transform, let alone the Fast Fourier Transform (FFT) in college. I could interpret the frequency response graph just fine, but I didn't understand the transform or the FFT algorithm. Finally, I figured it was time to learn both. I found this <a href="https://jakevdp.github.io/blog/2013/08/28/understanding-the-fft/" target="_blank" rel="noopener">Pythonic Perambulations article</a> to be very helpful as I learned. I encourage you to visit this website if you'd like to learn more about the FFT. For now though, focus on this demo I made. </p>
+
+    <p>Below you can select three frequencies and their amplitudes. You can also add noise to the resulting signal. The first plot will show the combined frequencies in the time domain. The second plot will show the frequency response of the time signal. Additionally, you can view aliased frequencies mirrored across the Nyquist frequency (512 Hz here, given our 1024 Hz sampling rate).</p>
+
+    <p>Hopefully you'll see two key things when adjusting the sliders. First, the frequency response peak is half of the input frequency amplitude. For example a 3 Hz signal with an amplitude of 10 will result in a FFT peak at 3 Hz with a magnitude of 5. Second, adding noise (in this case, non-centered noise) will cause a steep FFT peak at 0 Hz. This noise makes other FFT peaks less distinct and makes interpreting results more difficult.</p>
+
       
     <h2 class="section-heading">Frequency 1</h2>
     <div class="sliders-container">
@@ -227,13 +234,11 @@ function updatePlot() {
                     window.matchMedia('(prefers-color-scheme: dark)').matches;
 
   if (isDarkMode) {
-    console.log("Yes")
     papercolor = "#121212"
     plotcolor = "#121212"
     gridcolor = "#4D4D4D"
     fontcolor = "#FFFFFF"
   } else {
-    console.log("Light mode detected");
     papercolor = "none"
     plotcolor = "none"
     gridcolor = "#D8D8D8"
@@ -257,6 +262,7 @@ const avg = (a1+a2+a3)/3;
 yValues = [];
 xValues = [];
 maxf = Math.max(f1,f2,f3);
+minf = Math.min(f1,f2,f3);
 
 for (let i = 0; i < N; i++) {
   const x = i * step;
@@ -269,6 +275,8 @@ for (let i = 0; i < N; i++) {
   xValues.push(x);
 }
 
+  xrange2 = [0, 1.5];
+
   // --- plot time-domain ---
   Plotly.newPlot("myPlot",
     [{
@@ -279,7 +287,7 @@ for (let i = 0; i < N; i++) {
     }],
     {
       title: "Time Domain Signal",
-      xaxis: { title: "Time (s)", linecolor: "#000", gridcolor: gridcolor},
+      xaxis: { title: "Time (s)", linecolor: "#000", range: xrange2 ,gridcolor: gridcolor},
       font: { family: "Arial", size: 14, color: fontcolor},
       yaxis: {gridcolor: gridcolor}, 
       hovermode: false,
@@ -287,7 +295,9 @@ for (let i = 0; i < N; i++) {
       plot_bgcolor: plotcolor,
       paper_bgcolor: papercolor
     },
-    { staticPlot: false }
+    { staticPlot: false,
+      displayModeBar: false
+    }
   );
 
   // Complex number helper
@@ -349,12 +359,12 @@ for (let i = 0; i < N; i++) {
 
   // Frequency axis
   Fs = 1 / step;
+  console.log(Fs)
   const freqs = Array.from({ length: N }, (_, i) => i * Fs / N);
 
   // --- plot FFT ---
   let xRange;
   const toggle = document.getElementById("fftToggle");
-  console.log(toggle.checked)
   if (toggle.checked) {
     // Show aliased frequencies (full Nyquist range)
     xRange = [0, Fs];
@@ -379,9 +389,11 @@ for (let i = 0; i < N; i++) {
       hovermode: false,
       margin: { l: 30, r: 10, t: 50, b: 50 },
       plot_bgcolor: plotcolor,
-      paper_bgcolor: papercolor
+      paper_bgcolor: papercolor,
     },
-    { staticPlot: false }
+    { staticPlot: false,
+      displayModeBar: false
+    }
   );
 }
 
