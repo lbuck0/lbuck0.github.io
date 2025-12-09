@@ -23,6 +23,18 @@
     "link": "Articles/FFT.html"
   },
   {
+    "title": "Median Home Price to Median Household Income",
+    "summary": "Median Home Price to Household Income from 1984 to 2025",
+    "image": "Articles/Images/home.jpg",
+    "date": "2025-12-09",
+    "tags": [
+      "Coding",
+      "Real Estate",
+      "Economics"
+    ],
+    "link": "Articles/HomePrices.html"
+  },
+  {
     "title": "Largest Companies as Share of Market Value",
     "summary": "Percent of market capitalization attributed to the largest company",
     "image": "Articles/Images/BigCompanies.svg",

@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="title" content="Median Home Price to Median Household Income"/>
+    <meta name="date" content="2025-12-09" />
+    <meta name="tags" content="Coding, Real Estate, Economics" />
+    <meta name="thumbnail" content="Articles/Images/home.jpg"/>
+    <meta name="summary" content="Median Home Price to Household Income from 1984 to 2025"/>
+    <title>Luke Buck | Median Home Price to Median Houshold Income Ratio 1984-2025</title>
+    <link rel="stylesheet" href="Article_Template.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+    <link rel="icon" href="/Images/Logo.png" type="image/png" />
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+  <div class="header-container">
+      <h2 class="site-name">
+        <a href="../index.html">Luke Buck</a>
+      </h2>
+      <nav class="desktop-nav">
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#education">Education</a>
+        <a href="../index.html#articles">Projects</a>
+        <a href="../index.html#experience">Experience</a>
+        <a href="../index.html#music">Music</a>
+        <a href="../index.html#certs">Certifications</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+      <button id="menu-toggle">☰</button>
+    </div>
+    <nav id="mobile-menu">
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#education">Education</a>
+      <a href="../index.html#articles">Projects</a>
+      <a href="../index.html#experience">Experience</a>
+      <a href="../index.html#music">Music</a>
+      <a href="../index.html#certs">Certifications</a>
+      <a href="../index.html#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- 📝 TITLE + SUMMARY -->
+  <main class="article-main">
+    <div class="back-wrapper">
+      <a href="../projects.html" class="back-link">← Projects & Research</a>
+    </div>
+    <h1 class="article-title">Median Home Price to Median Household Income Ratio</h1>
+    <img src="Images/home.jpg" alt="Main visual" class="main-article-image" />
+    <p class="article-summary">Median Home Price to Median Household Income Ratio from 1984 to 2025</p>
+      <p class="article-date">Published: December 9, 2025</p>
+    <p class="article-date">Tags: Coding, Real Estate, Economics</p>
+    <p class="article-author">By Luke Buck</p>
+
+    <!-- 🧾 ARTICLE CONTENT -->
+    <article class="article-body">
+
+      <p>As a young professional, the significant rise in home prices since the pandemic has been discouraging. I brought this up in conversation with some older friends recently and we began talking about median home prices compared to median household income. One older friend recalled buying a home in the 80s for roughly three times his household income. Today though, young homebuyers are lucky if they can purchase a home for five times their annual household income. See the history of this ratio below.</p>
+
+      <div class="download-wrapper">
+        <button id="downloadCSV" class="back-button">Download CSV</button>
+      </div>
+
+      <canvas id="myChart" width="600" height="400" min-height="300"></canvas>
+
+      <p>Though young people searching for homes today may feel overwhlelmed, we can see that the housing market has cooled since its 2022 high, when median priced homes were selling for nearly six times the median household income. More recently, the ratio has dipped below five, a level which has been reached several times since 2000. Still, the ratio has trended upward since 2000, and certainly has not returned to the levels seen in the 80s and 90s.</p>
+      </p>
+
+      <p>I gathered this data from Federal Reserve Economic Data (FRED). Median home prices were availible quarterly, however median household income was only available annually. Hope you enjoy!</p>
+    </article>
+  </main>
+
+  <footer>
+  <p id="updated-footer">Last updated: <span id="updated-date"></span></p>
+  <p class="signature">Tell your dog I say hi!</p>
+  <p class="social-links">
+    <a href="https://linkedin.com/in/luke-a-buck" target="_blank">
+      <img src="../Images/linkedin.png" alt="LinkedIn" class="social-icon">
+    </a>
+  </p>
+</footer>
+
+</body>
+
+<script>
+  // Last updated script
+  document.getElementById("updated-date").textContent =
+    new Date(document.lastModified).toLocaleDateString();
+</script>
+
+<script>
+    // ========== MOBILE MENU ==========
+    const menuToggle = document.getElementById("menu-toggle");
+    const mobileMenu = document.getElementById("mobile-menu");
+    menuToggle.addEventListener("click", () => {
+        mobileMenu.classList.toggle("show");
+    });
+
+</script>
+
+<script>
+  window.addEventListener("scroll", () => {
+    const header = document.querySelector("header");
+    const maxScroll = document.body.scrollHeight - window.innerHeight;
+    const scrollRatio = Math.min(1, window.scrollY / maxScroll);
+    const fill = Math.floor(scrollRatio * 100);
+
+    header.style.borderImage = `linear-gradient(to right, #3a6ea5 ${fill}%, transparent ${fill}%) 1`;
+  });
+
+      document.querySelectorAll("#mobile-menu a").forEach(link => {
+      link.addEventListener("click", () => {
+        document.getElementById("mobile-menu").classList.remove("show");
+      });
+    });
+
+    window.addEventListener("resize", () => {
+      const mobileMenu = document.getElementById("mobile-menu");
+      const breakpoint = 750; // 👈 change this if needed
+
+      if (window.innerWidth > breakpoint && mobileMenu.classList.contains("show")) {
+        mobileMenu.classList.remove("show");
+      }
+    });
+</script>
+<script>
+    window.addEventListener("resize", () => {
+      const mobileMenu = document.getElementById("mobile-menu");
+      const breakpoint = 750; // 👈 change this if needed
+
+      if (window.innerWidth > breakpoint && mobileMenu.classList.contains("show")) {
+        mobileMenu.classList.remove("show");
+      }
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+
+<script>
+  // ✅ Custom plugin to draw vertical line + ball + label
+  const verticalLinePlugin = {
+    id: 'verticalLine',
+    afterDraw(chart) {
+      const tooltip = chart.tooltip;
+      if (tooltip && tooltip._active && tooltip._active.length) {
+        const ctx = chart.ctx;
+        const activePoint = tooltip._active[0];
+        const x = activePoint.element.x;
+        const y = activePoint.element.y;
+        const topY = chart.chartArea.top;
+        const bottomY = chart.chartArea.bottom;
+
+        // Detect dark mode
+        const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        // Draw vertical line
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(x, topY - 10);
+        ctx.lineTo(x, bottomY);
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = '#aaa';
+        ctx.stroke();
+        ctx.restore();
+
+        // Draw ball at intersection
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(x, y, 7, 0, 2 * Math.PI);
+        ctx.fillStyle = '#3a6ea5';
+        ctx.fill();
+        ctx.strokeStyle = '#fff';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        ctx.restore();
+
+        // Draw label above chart
+        const value = activePoint.element.$context.raw.y;
+        const date = activePoint.element.$context.raw.x;
+        const formattedValue = value.toLocaleString(); // ✅ Adds commas
+        const labelText = `${new Date(date).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short"
+        })}: ${formattedValue}`;
+
+        ctx.font = '14px "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif';
+        ctx.fillStyle = isDarkMode ? '#eee' : '#333'; // ✅ Light text in dark mode
+        ctx.textBaseline = 'bottom';
+
+        const textWidth = ctx.measureText(labelText).width;
+        const chartLeft = chart.chartArea.left;
+        const chartRight = chart.chartArea.right;
+
+        // Determine alignment
+        let textAlign = 'center';
+        if (x - textWidth / 2 < chartLeft) {
+          textAlign = 'left';
+        } else if (x + textWidth / 2 > chartRight) {
+          textAlign = 'right';
+        }
+        ctx.textAlign = textAlign;
+
+        // Adjust x position if needed
+        let labelX = x;
+        if (textAlign === 'left') labelX = chartLeft + 4;
+        if (textAlign === 'right') labelX = chartRight - 4;
+
+        const labelY = chart.chartArea.top - 12;
+        ctx.fillText(labelText, labelX, labelY);
+      }
+    }
+  };
+
+  // ✅ Load CSV and render chart
+  async function fetchCSVData() {
+    const response = await fetch('Data/Median_Home_Price_Ratio.csv');
+    const text = await response.text();
+    const rows = text.trim().split('\n').slice(1); // Skip header
+
+    const data = rows.map(row => {
+      const [label, value] = row.split(',');
+      return {
+        x: new Date(label),
+        y: parseFloat(value)
+      };
+    });
+
+    renderChart(data);
+  }
+
+  // ✅ Render Chart.js line chart
+  let chartInstance = null;
+
+function renderChart(data) {
+  const ctx = document.getElementById('myChart').getContext('2d');
+
+  if (chartInstance) {
+    chartInstance.destroy(); // ✅ Clean up previous chart
+  }
+
+  const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const gridColor = isDarkMode ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0, 0, 0, 0.05)';
+  const tickColor = isDarkMode ? '#eee' : '#333';
+
+  const gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
+  gradient.addColorStop(0, 'rgba(58, 110, 165, 0.7)');
+  gradient.addColorStop(1, 'rgba(58, 110, 165, 0.1)');
+
+  chartInstance = new Chart(ctx, {
+    type: 'line',
+    data: {
+      datasets: [{
+        label: 'Public Companies',
+        data: data,
+        borderColor: '#3a6ea5',
+        backgroundColor: gradient,
+        fill: true,
+        tension: 0.4,
+        pointRadius: 0,
+        pointHoverRadius: 0
+      }]
+    },
+    options: {
+      responsive: true,
+      interaction: {
+        mode: 'index',
+        intersect: false
+      },
+      layout: {
+        padding: {
+          top: 50,
+          right: 8
+        }
+      },
+      plugins: {
+        tooltip: {
+          enabled: false
+        },
+        legend: {
+          display: false
+        }
+      },
+      scales: {
+        x: {
+          type: 'time',
+          min: '1984-01-01',
+          bounds: 'ticks',
+  
+          time: {
+            unit: 'year',
+            displayFormats: {
+              month: 'yyyy'
+            }
+          },
+          ticks: {
+            font: {
+              size: 14,
+              family: 'Segoe UI, system-ui, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif'
+            },
+            color: tickColor,
+            minTicksLimit: 4,   // ✅ Minimum number of ticks
+            maxTicksLimit: 6,   // ✅ Maximum number of ticks
+          },
+          grid: {
+            display: false,
+            color: gridColor
+          }
+        },
+        y: {
+          beginAtZero: false,
+          ticks: {
+            font: {
+              size: 14,
+              family: 'Segoe UI, system-ui, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif'
+            },
+            color: tickColor,
+            minTicksLimit: 5,
+            maxTicksLimit: 6   // ✅ Maximum number of ticks
+          },
+          grid: {
+            display: true,
+            drawOnChartArea: true,
+            color: gridColor
+          }
+        }
+      }
+    },
+    plugins: [verticalLinePlugin]
+  });
+}
+  // ✅ Kick off the chart rendering
+  fetchCSVData();
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+  fetchCSVData(); // ✅ Re-fetch and re-render chart on theme change
+});
+</script>
+
+<script>
+  document.getElementById('downloadCSV').addEventListener('click', async () => {
+    try {
+      const response = await fetch('Data/Median_Home_Price_Ratio.csv');
+      if (!response.ok) throw new Error('File not found');
+      const csv = await response.text();
+
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'Median_Home_Price_Ratio.csv';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error('Download failed:', err);
+      alert('Sorry, the CSV file could not be downloaded.');
+    }
+  });
+</script>
+
+</html>
